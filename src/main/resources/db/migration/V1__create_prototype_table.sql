@@ -1,0 +1,9 @@
+CREATE TABLE prototype (
+    id SERIAL NOT NULL,
+    title VARCHAR(256),
+    catchcopy VARCHAR(256),
+    concept VARCHAR(512),
+    image VARCHAR(256),
+    PRIMARY KEY (id)
+);
+
