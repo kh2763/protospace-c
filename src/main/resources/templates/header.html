@@ -1,0 +1,18 @@
+<header xmlns:th="http://www.thymeleaf.org" th:fragment="header" class="header">
+
+  <div class="header__inner">
+
+    <h1 class="header__logo">
+      <a th:href="@{/}">
+        <img th:src="https://protospace2020.herokuapp.com/assets/logo-b99f177af8fb82de2d6d7b86e95c7f329d3d143edd8b225bc2875ad9dd6e0cc3.png" alt="SHARE THE PROTOTYPE PROTO SPACE" class="header__logo-img">
+      </a>
+    </h1>
+
+    <div class="header__nav">
+      <a th:href="@{/users/sign_in}" class="header__btn header__btn--login">ログイン</a>
+      <a th:href="@{/users/sign_up}" class="header__btn header__btn--signup">新規登録</a>
+    </div>
+
+  </div>
+
+</header>
