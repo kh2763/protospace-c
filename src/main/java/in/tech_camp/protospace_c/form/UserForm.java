@@ -7,7 +7,9 @@ import in.tech_camp.protospace_c.validation.ValidationPriority1;
 import in.tech_camp.protospace_c.validation.ValidationPriority2;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
+@Data
 public class UserForm {
   @NotBlank(message = "Email can't be blank", groups = ValidationPriority1.class)
   @Email(message = "Email should be valid", groups = ValidationPriority2.class)
