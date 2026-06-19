@@ -34,6 +34,6 @@ public class UserForm {
   @NotBlank(message = "Team can't be blank", groups = ValidationPriority1.class)
   private String team;
 
-  @NotBlank(message = "Job tytle can't be blank", groups = ValidationPriority1.class)
-  private String job_tytle;
+  @NotBlank(message = "Job title can't be blank", groups = ValidationPriority1.class)
+  private String job_title;
 }
