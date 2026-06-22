@@ -1,0 +1,104 @@
+/* 新規投稿画面専用*/
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff; /* 背景を白に統一 */
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN W3", sans-serif;
+  color: #3b4043;
+}
+
+/* フォーム全体の配置（左寄せ） */
+.container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 500px;
+  margin: 20px 0 20px 40px; 
+  padding: 10px 0; 
+  box-sizing: border-box;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left; 
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #3b4043;
+}
+
+/* 各入力項目の間隔 */
+.field {
+  margin-bottom: 14px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #666666;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+/* 入力欄（テキスト・テキストエリア） */
+.form__text {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+textarea.form__text {
+  height: 100px;
+  resize: none;
+}
+
+.form__text:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: #87CEFA;
+  box-shadow: 0 0 0 3px rgba(135, 206, 250, 0.2);
+}
+
+/* 画像選択ボタン */
+#prototype_image {
+  width: 100%;
+  padding: 8px;
+  font-size: 13px;
+  background-color: #f1f8fe;
+  border: 1px dashed #87CEFA;
+  border-radius: 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* ボタンエリア */
+.actions {
+  margin-top: 20px;
+  text-align: left; 
+}
+
+/* 保存ボタン（サイズ：小） */
+.actions input[type="submit"] {
+  display: inline-block;
+  width: auto; 
+  padding: 8px 32px; 
+  font-size: 14px; 
+  font-weight: bold;
+  color: #fff;
+  background: #87CEFA;
+  border: 1px solid #87CEFA;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.actions input[type="submit"]:hover {
+  background: #64b5f6;
+  border-color: #64b5f6;
+}

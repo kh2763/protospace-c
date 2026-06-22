@@ -1,41 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<html xmlns:th="http://www.thymeleaf.org"  lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-    <title>PicTweet</title>
+  <meta charset="UTF-8">
+  <title>新規プロトタイプ投稿 - PROTO SPACE</title>
+  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/new.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<!--<div th:insert="~{header :: header}"></div>-->
+  <div th:insert="~{header :: header}"></div>
 
-<div class="contents row">
-  <div class="container">
-    <h3>新規プロトタイプの投稿</h3>
+  <div class="contents row">
+    <div class="container">
+      <h3>新規プロトタイプの投稿</h3>
+      
       <form th:action="@{/prototypes}" th:method="post" th:object="${prototypeForm}" enctype="multipart/form-data">
+        
         <div class="field">
-
           <label>プロトタイプの名称</label><br>
-          <input type="text" th:field="*{title}" placeholder="Title" /><br>
+          <input type="text" th:field="*{title}" class="form__text" /><br>
+        </div>
 
+        <div class="field">
           <label>キャッチコピー</label><br>
-          <input type="text" th:field="*{catchcopy}" placeholder="Catch Copy" /><br>
-        
+          <input type="text" th:field="*{catchcopy}" class="form__text" /><br>
+        </div>
+
+        <div class="field">
           <label>コンセプト</label><br>
-          <textarea th:field="*{concept}" placeholder="Concept" rows="10"></textarea><br>
-        
+          <textarea th:field="*{concept}" class="form__text"></textarea><br>
+        </div>
+
+        <div class="field">
           <label>プロトタイプの画像</label><br>
           <input type="file" th:field="*{image}" id="prototype_image" /><br>
-
-        </div> 
+        </div>
+        
         <div class="actions">
           <input type="submit" value="保存する" />
         </div>
-    </form>
+        
+      </form>
+    </div>
   </div>
-</div>
 
-<!--<div th:insert="~{footer :: footer}"></div>-->
+  <div th:insert="~{footer :: footer}"></div>
 
 </body>
 </html>
