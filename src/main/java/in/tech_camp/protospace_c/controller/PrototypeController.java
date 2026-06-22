@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import in.tech_camp.protospace_c.entity.PrototypeEntity;
@@ -36,6 +37,18 @@ public class PrototypeController {
     model.addAttribute("prototypeForm", new PrototypeForm());
     return "prototypes/new";
   }
+
+  //prototypeの詳細ページ移動メソッド（/datailは後に各ユーザー｛id｝に変更する）
+  @GetMapping("/prototypes/datail")
+      public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {
+      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
+      CommentForm commentForm = new CommentForm();
+      model.addAttribute("prototype", prototype);
+      model.addAttribute("commentForm", commentForm);
+      model.addAttribute("comments", prototype.getComments());
+      return "prototypes/detail";
+  }
+
 
   //投稿処理（DB保存後にトップページへ移動）
   @PostMapping("/prototypes")
