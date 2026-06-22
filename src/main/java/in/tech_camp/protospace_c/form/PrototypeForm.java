@@ -2,13 +2,22 @@ package in.tech_camp.protospace_c.form;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class PrototypeForm {
+
+    @NotBlank()
     private String title;      
+
+    @NotBlank()
     private String catchcopy;  
-    private String concept; 
+
+    @NotBlank()
+    private String concept;
+
+    //画像のチェックはコントローラーに記述
     private MultipartFile image;   
 }
 /*
