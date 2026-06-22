@@ -6,8 +6,17 @@
         <img class="header__logo-img" th:src="@{/images/image.png}" alt="SHARE THE PROTOTYPE PROTO SPACE" />
       </a>
     </div>
+
+    <div class="header_nav" th:if="${#authorization.expression('isAuthenticated()')}">
+      <span>
+        <form th:action="@{/logout}" method="post">
+          <input class="logout-btn" type="submit" value="ログアウト"/>
+        </form>
+      </span>
+      <a class="post" th:href="@{/prototypes/new}">投稿する</a>
+    </div>
     
-    <div class="header__nav">
+    <div class="header__nav" th:if="${#authorization.expression('!isAuthenticated()')}">
       <a class="header__btn header__btn--login" th:href="@{/users/sign_in}">ログイン</a>
       <a class="header__btn header__btn--signup" th:href="@{/users/sign_up}">新規登録</a>
     </div>
