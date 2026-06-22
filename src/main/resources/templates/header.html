@@ -1,15 +1,16 @@
 <header class="header">
-  <div class="inner">
-    <div class="nav">
-      <div class="nav__left">
-        <a th:href="@{/}">
-          <img class="logo" th:src="@{/images/image.png}" alt="SHARE THE PROTOTYPE PROTO SPACE" />
-        </a>
-      </div>
-      <div class="nav__right">
-        <a class="nav__btn" th:href="@{/users/sign_in}">ログイン</a>
-        <a class="nav__btn" th:href="@{/users/sign_up}">新規登録</a>
-      </div>
+  <div class="header__inner">
+    
+    <div class="header__logo">
+      <a th:href="@{/}">
+        <img class="header__logo-img" th:src="@{/images/image.png}" alt="SHARE THE PROTOTYPE PROTO SPACE" />
+      </a>
     </div>
+    
+    <div class="header__nav">
+      <a class="header__btn header__btn--login" th:href="@{/users/sign_in}">ログイン</a>
+      <a class="header__btn header__btn--signup" th:href="@{/users/sign_up}">新規登録</a>
+    </div>
+    
   </div>
 </header>
