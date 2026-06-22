@@ -1,5 +1,23 @@
 package in.tech_camp.protospace_c.form;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.Data;
+
+@Data
 public class PrototypeForm {
-  
+    private String title;      
+    private String catchcopy;  
+    private String concept; 
+    private MultipartFile image;   
 }
+/*
+  マイグレーションファイルは以下を想定
+CREATE TABLE prototype (
+    id SERIAL NOT NULL,
+    title VARCHAR(256),
+    catchcopy VARCHAR(256),
+    concept VARCHAR(512),
+    image VARCHAR(256),
+    PRIMARY KEY (id)
+); */
