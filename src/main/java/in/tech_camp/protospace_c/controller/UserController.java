@@ -53,10 +53,10 @@ public class UserController {
     UserEntity userEntity = new UserEntity();
     userEntity.setEmail(userForm.getEmail());
     userEntity.setPassword(userForm.getPassword());
-    userEntity.setUser_name(userForm.getUser_name());
+    userEntity.setUserName(userForm.getUserName());
     userEntity.setProfile(userForm.getProfile());
     userEntity.setTeam(userForm.getTeam());
-    userEntity.setJob_title(userForm.getJob_title());
+    userEntity.setJobTitle(userForm.getJobTitle());
 
     try {
       userRepository.insert(userEntity);

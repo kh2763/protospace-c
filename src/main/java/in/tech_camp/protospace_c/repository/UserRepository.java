@@ -10,7 +10,7 @@ import in.tech_camp.protospace_c.entity.UserEntity;
 @Mapper
 public interface UserRepository {
   // フォームの内容を受け取ってデータベースに登録する
-  @Insert("INSERT INTO users (email, password, user_name, profile, team, job_title) VALUES (#{email}, #{password}, #{user_name}, #{profile}, #{team}, #{job_title})")
+  @Insert("INSERT INTO users (email, password, user_name, profile, team, job_title) VALUES (#{email}, #{password}, #{userName}, #{profile}, #{team}, #{jobTitle})")
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void insert(UserEntity userEntity);
 
