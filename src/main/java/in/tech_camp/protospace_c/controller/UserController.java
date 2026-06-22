@@ -17,6 +17,7 @@ import in.tech_camp.protospace_c.validation.ValidationOrder;
 import in.tech_camp.protospace_c.entity.UserEntity;
 import in.tech_camp.protospace_c.form.UserForm;
 import in.tech_camp.protospace_c.repository.UserRepository;
+import in.tech_camp.protospace_c.service.UserService;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -24,6 +25,7 @@ import lombok.AllArgsConstructor;
 public class UserController {
   
   private final UserRepository userRepository;
+  private final UserService userService;
 
   // ユーザー登録ページの表示
   @GetMapping("/users/sign_up")
@@ -60,7 +62,7 @@ public class UserController {
     userEntity.setJobTitle(userForm.getJobTitle());
 
     try {
-      userRepository.insert(userEntity);
+      userService.createUserWithEncryptedPassword(userEntity);
     } catch (Exception e) {
       System.out.println("エラー：" + e);
       return "redirect:/";
