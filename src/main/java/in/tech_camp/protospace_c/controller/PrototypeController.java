@@ -61,7 +61,13 @@ public class PrototypeController {
     pro.setConcept(form.getConcept());
     // ★ Formに入っている画像ファイルから、ファイル名（文字列）を取り出してEntityにセットするらしい
     pro.setImage(form.getImage().getOriginalFilename());
-    prototypeRepository.insert(pro);
+    
+     try {
+      prototypeRepository.insert(pro);
+    } catch (Exception e) {
+      System.out.println("エラー：" + e);
+      return "redirect:/";
+    }
     return "redirect:/";
   }
 }
