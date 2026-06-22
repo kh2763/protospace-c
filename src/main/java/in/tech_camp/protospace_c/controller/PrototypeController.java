@@ -45,12 +45,12 @@ public class PrototypeController {
       @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
       BindingResult result) {
 
-    // 追記　画像の入力チェック
+    // 画像の入力チェック
     if (form.getImage() == null || form.getImage().isEmpty()) {
         result.rejectValue("image", "error.image");
     }
 
-    // 追記 エラーがあれば、何もせず投稿ページに戻る
+    // エラーがあれば、何もせず投稿ページに戻る
     if (result.hasErrors()) {
       return "prototypes/new";
     }
@@ -62,8 +62,21 @@ public class PrototypeController {
     // ★ Formに入っている画像ファイルから、ファイル名（文字列）を取り出してEntityにセットするらしい
     pro.setImage(form.getImage().getOriginalFilename());
     
-     try {
+    // 修正 画像の表示についていろいろ
+    try {
+      // 💡 1. 保存先（static/images/）のパスを作る
+      java.nio.file.Path uploadPath = java.nio.file.Paths.get("src/main/resources/static/images/").toAbsolutePath().normalize();
+      if (!java.nio.file.Files.exists(uploadPath)) {
+          java.nio.file.Files.createDirectories(uploadPath); // なければ自動で作る
+      }
+      
+      // 💡 2. ユーザーから送られてきた本物のファイルを static/images フォルダにコピーする
+      java.nio.file.Path targetLocation = uploadPath.resolve(pro.getImage());
+      java.nio.file.Files.copy(form.getImage().getInputStream(), targetLocation, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+      
+      // 💡 3. ファイルが無事保存できたら、DBに登録する
       prototypeRepository.insert(pro);
+      
     } catch (Exception e) {
       System.out.println("エラー：" + e);
       return "redirect:/";
