@@ -1,80 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
   <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ProtoSpace</title>
-    <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="jCDoPUdYp9dhW3FtQvOTDIpcca4HPqFvY8d4zwBDU8BllUn/zLact1H4znDQwJCgTUEaAke9BrKHqY8f32QVJQ==" />
     
-    <link rel="stylesheet" href="/assets/application-02bd8162b3b23ce7bd0fa4c8887a4ae3ff0d75207cae5d9eeed32d59f1c5265a.css" media="all" data-turbolinks-track="reload" />
-    <script src="/packs/js/application-b45cd02bc91e4f736535.js" data-turbolinks-track="reload"></script>
+    <link rel="stylesheet" th:href="@{/assets/application.css}" media="all" />
+    <script th:src="@{/packs/js/application.js}"></script>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700,900&display=swap" rel="stylesheet">
   </head>
-
-<body>
+  
+  <body>
     <header class="header">
       <div class="inner">
         <div class="nav">
           <div class="nav__left">
-            <a href="/"><img class="logo" src="/assets/logo-b99f177af8fb82de2d6d7b86e95c7f329d3d143edd8b225bc2875ad9dd6e0cc3.png" /></a>
+            <a th:href="@{/}">
+              <img class="logo" th:src="@{/assets/logo.png}" alt="ProtoSpace" />
+            </a>
           </div>
-            <div class="nav__right">
-              <a class="nav__btn" href="/users/sign_in">ログイン</a>
-              <a class="nav__btn" href="/users/sign_up">新規登録</a>
-            </div>
+          <div class="nav__right">
+            <a class="nav__btn" th:href="@{/users/sign_in}">ログイン</a>
+            <a class="nav__btn" th:href="@{/users/sign_up}">新規登録</a>
+          </div>
         </div>
       </div>
     </header>
+
     <div class="main">
-  <div class="inner">
-    <div class="form__wrapper">
-      <h2 class="page-heading">ユーザー新規登録</h2>
-        <form action="/users" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="s1ObNoTFqlAQYunuHnT1jQEV9m8/s8zE3gv3yhVL7dvpVaNnT4MhpgfMvbxRPEZqQ+XXeKXk6Mhh3fvWgBQPeQ==" autocomplete="off" />
-
-        <div class="field">
-          <label for="user_email">メールアドレス</label><br />
-          <input autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]" id="user_email" />
+      <div class="inner">
+        <div class="form__wrapper">
+          <h2 class="page-heading">ユーザー新規登録</h2>
+          
+          <form th:action="@{/user}" th:object="${userForm}" method="post">
+            
+            <div class="field">
+              <label for="email">メールアドレス</label><br />
+              <input autofocus="autofocus" autocomplete="email" type="email" th:field="*{email}" id="email" />
+            </div>
+            
+            <div class="field">
+              <label for="password">パスワード（6文字以上）</label><br />
+              <input autocomplete="new-password" type="password" th:field="*{password}" id="password" />
+            </div>
+            
+            <div class="field">
+              <label for="password_confirmation">パスワード再入力</label><br />
+              <input autocomplete="off" type="password" th:field="*{passwordConfirmation}" id="password_confirmation" />
+            </div>
+            
+            <div class="field">
+              <label for="user_name">ユーザー名</label><br />
+              <input type="text" th:field="*{user_name}" id="user_name" />
+            </div>
+            
+            <div class="field">
+              <label for="profile">プロフィール</label><br />
+              <textarea class="form__text" th:field="*{profile}" id="profile"></textarea>
+            </div>
+            
+            <div class="field">
+              <label for="team">所属</label><br />
+              <textarea class="form__text" th:field="*{team}" id="team"></textarea>
+            </div>
+            
+            <div class="field">
+              <label for="job_title">役職</label><br />
+              <textarea class="form__text" th:field="*{job_title}" id="job_title"></textarea>
+            </div>
+            
+            <div class="actions">
+              <input type="submit" value="新規登録" class="form__btn" />
+            </div>
+          </form>
+          
         </div>
+      </div>
+    </div>
 
-        <div class="field">
-          <label for="user_password">パスワード（6文字以上）</label><br />
-          <input autocomplete="new-password" type="password" name="user[password]" id="user_password" />
-        </div>
-
-        <div class="field">
-          <label for="user_password_confirmation">パスワード再入力</label><br />
-          <input autocomplete="new-password" type="password" name="user[password_confirmation]" id="user_password_confirmation" />
-        </div>
-
-        <div class="field">
-          <label for="user_name">ユーザー名</label><br />
-          <input type="text" name="user[name]" id="user_name" />
-        </div>
-
-        <div class="field">
-          <label for="user_profile">プロフィール</label><br />
-          <textarea class="form__text" name="user[profile]" id="user_profile">
-</textarea>
-        </div>
-
-        <div class="field">
-          <label for="user_occupation">所属</label><br />
-          <textarea class="form__text" name="user[occupation]" id="user_occupation">
-</textarea>
-        </div>
-
-        <div class="field">
-          <label for="user_position">役職</label><br />
-          <textarea class="form__text" name="user[position]" id="user_position">
-</textarea>
-        </div>
-
-        <div class="actions">
-          <input type="submit" name="commit" value="新規登録" class="form__btn" data-disable-with="新規登録" />
-        </div>
-</form>    </div>
-  </div>
-</div>
     <footer class="footer">
       <p class="copyright">Copyright © PROTO SPACE All rights reserved.</p>
     </footer>
