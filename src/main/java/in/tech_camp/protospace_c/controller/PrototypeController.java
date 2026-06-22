@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import in.tech_camp.protospace_c.entity.PrototypeEntity;
 import in.tech_camp.protospace_c.form.PrototypeForm;
@@ -23,9 +22,12 @@ public class PrototypeController {
 
   //仮のトップページ（送信後のリダイレクト先）
   @GetMapping("/")
-  @ResponseBody 
   public String showTweets(Model model) {
-    return "トップページ"; 
+    //データベースからすべてのプロトタイプを取得して画面に渡す
+    model.addAttribute("prototypes", prototypeRepository.findAll());
+
+    //index.htmlを呼び出す
+    return "prototypes/index";
   }
 
   //投稿ページ移動メソッド

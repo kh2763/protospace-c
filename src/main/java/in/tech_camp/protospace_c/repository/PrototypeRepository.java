@@ -1,8 +1,11 @@
 package in.tech_camp.protospace_c.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
 
 import in.tech_camp.protospace_c.entity.PrototypeEntity;
 
@@ -11,4 +14,7 @@ public interface  PrototypeRepository {
   @Insert("INSERT INTO prototype (title, catchcopy, concept, image)VALUES (#{title}, #{catchcopy}, #{concept}, #{image})")
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void insert(PrototypeEntity prototype); //各入力をデータベースに保存
+  
+  @Select("SELECT * FROM prototype")
+  List<PrototypeEntity> findAll();
 }
