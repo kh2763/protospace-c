@@ -38,10 +38,9 @@ public class PrototypeController {
     return "prototypes/new";
   }
 
-  //prototypeの詳細ページ移動メソッド（/datailは後に各ユーザー｛id｝に変更する）
-  @GetMapping("/prototypes/datail")
-      public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {
-      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
+  //prototypeの詳細ページ移動メソッド
+  @GetMapping("/prototypes/detail/{prototypeId}")
+    public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
       CommentForm commentForm = new CommentForm();
       model.addAttribute("prototype", prototype);
       model.addAttribute("commentForm", commentForm);
