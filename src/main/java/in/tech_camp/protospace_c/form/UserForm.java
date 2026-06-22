@@ -29,7 +29,7 @@ public class UserForm {
   }
 
   @NotBlank(message = "Username can't be blank", groups = ValidationPriority1.class)
-  private String user_name;
+  private String userName;
 
   @NotBlank(message = "Profile can't be blank", groups = ValidationPriority1.class)
   private String profile;
@@ -38,5 +38,5 @@ public class UserForm {
   private String team;
 
   @NotBlank(message = "Job title can't be blank", groups = ValidationPriority1.class)
-  private String job_title;
+  private String jobTitle;
 }

@@ -5,27 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ProtoSpace</title>
     
-    <link rel="stylesheet" th:href="@{/assets/application.css}" media="all" />
     <script th:src="@{/packs/js/application.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/signUp.css}" media="all" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700,900&display=swap" rel="stylesheet">
   </head>
   
   <body>
-    <header class="header">
-      <div class="inner">
-        <div class="nav">
-          <div class="nav__left">
-            <a th:href="@{/}">
-              <img class="logo" th:src="@{/assets/logo.png}" alt="ProtoSpace" />
-            </a>
-          </div>
-          <div class="nav__right">
-            <a class="nav__btn" th:href="@{/users/sign_in}">ログイン</a>
-            <a class="nav__btn" th:href="@{/users/sign_up}">新規登録</a>
-          </div>
-        </div>
-      </div>
-    </header>
+    
+  <div th:insert="~{header :: header}"></div>
 
     <div class="main">
       <div class="inner">
@@ -51,7 +38,7 @@
             
             <div class="field">
               <label for="user_name">ユーザー名</label><br />
-              <input type="text" th:field="*{user_name}" id="user_name" />
+              <input type="text" th:field="*{userName}" id="user_name" />
             </div>
             
             <div class="field">
@@ -66,7 +53,7 @@
             
             <div class="field">
               <label for="job_title">役職</label><br />
-              <textarea class="form__text" th:field="*{job_title}" id="job_title"></textarea>
+              <textarea class="form__text" th:field="*{jobTitle}" id="job_title"></textarea>
             </div>
             
             <div class="actions">
@@ -78,8 +65,7 @@
       </div>
     </div>
 
-    <footer class="footer">
-      <p class="copyright">Copyright © PROTO SPACE All rights reserved.</p>
-    </footer>
+  <div th:insert="~{footer :: footer}"></div>
+
   </body>
 </html>
