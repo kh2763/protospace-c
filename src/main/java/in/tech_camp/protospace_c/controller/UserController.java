@@ -54,6 +54,7 @@ public class UserController {
     userEntity.setEmail(userForm.getEmail());
     userEntity.setPassword(userForm.getPassword());
     userEntity.setUser_name(userForm.getUser_name());
+    userEntity.setProfile(userForm.getProfile());
     userEntity.setTeam(userForm.getTeam());
     userEntity.setJob_title(userForm.getJob_title());
 
