@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <title>ProtoSpace</title>
+</head>
+
+<body>
+
+<div th:insert="~{header :: header}"></div>
+
+<div class="main">
+  <div class="inner">
+    <div class="form__wrapper">
+      <h2 class="page-heading">ユーザーログイン</h2>
+      <form th:method="post" th:action="@{/login}" >
+        <div class="field">
+          <label>メールアドレス</label><br />
+          <input type="text" id="email" name="email" autofocus="autofocus" required="required" />
+        </div>
+
+        <div class="field">
+          <label>パスワード（6文字以上）</label><br />
+          <input type="password" name="password" required="required" autocomplete="off" />
+        </div>
+
+        <div class="actions">
+          <input type="submit" name="commit" value="ログイン" class="form__btn" data-disable-with="ログイン" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div th:insert="~{footer :: footer}"></div>
+
+</body>
+</html>
