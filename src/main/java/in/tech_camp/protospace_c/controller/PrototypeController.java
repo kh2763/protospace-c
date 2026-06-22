@@ -2,6 +2,8 @@ package in.tech_camp.protospace_c.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +41,20 @@ public class PrototypeController {
 
   //投稿処理（DB保存後にトップページへ移動）
   @PostMapping("/prototypes")
-  public String createPrototype(@ModelAttribute("prototypeForm") PrototypeForm form) {
+  public String createPrototype(
+      @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
+      BindingResult result) {
+
+    // 追記　画像の入力チェック
+    if (form.getImage() == null || form.getImage().isEmpty()) {
+        result.rejectValue("image", "error.image");
+    }
+
+    // 追記 エラーがあれば、何もせず投稿ページに戻る
+    if (result.hasErrors()) {
+      return "prototypes/new";
+    }
+    
     PrototypeEntity pro = new PrototypeEntity();
     pro.setTitle(form.getTitle());
     pro.setCatchcopy (form.getCatchcopy ());
