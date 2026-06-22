@@ -1,21 +1,41 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
-
   <head>
     <meta charset="UTF-8">
     <title>ProtoSpace</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
   </head>
-
   <body>
+    <main class="main">
+      <div class="inner">
+        
+        <div th:insert="~{header :: header}"></div>
+        
+        <div sec:authorize="isAuthenticated()" class="greeting">
+          こんにちは、
+        
 
-    <div th:insert="~{header :: header}"></div>
+        <a th:href="@{#}" class="greeting__link" sec:authentication="principal.username">ユーザー名</a>さん
+       </div>
+       <div class="card__wrapper">
+        <div class="card" th:each="prototype : ${prototypes}">
 
+          <a th:href="@{#}">
+            <img th:src="${prototype.imageUrl}" class="card__img" alt="プロトタイプ画像" />
+          </a>
+          <div class="card__body">
+            <a th:href="@{#}" class="card__title" th:text="${prototype.title}">プロトタイプ名</a>
 
-    
-    <div th:insert="~{footer :: footer}"></div>
-    
+            <p class="card__summary" th:text="${prototype.catchCopy}">キャッチコピー</p>
+
+            <a th:href="@{#}" class="card__user" th:text="'by ' + ${prototype.user.name}">by 投稿者</a>
+          </div>
+        </div>
+       </div>
+       
+       <div th:insert="~{footer :: footer}"></div>
+        
+      </div>
+    </main>
   </body>
-
 </html>
