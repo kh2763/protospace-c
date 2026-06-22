@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import in.tech_camp.protospace_c.validation.ValidationOrder;
 import in.tech_camp.protospace_c.entity.UserEntity;
@@ -67,4 +68,20 @@ public class UserController {
 
     return "redirect:/";
   }
+
+  //ログインページの表示
+  @GetMapping("/users/login")
+  public String showLogin() {
+      return "users/login";
+  }
+
+  //ログインエラーの表示　エラーを渡す
+  @GetMapping("/login")
+  public String showLoginWithError(@RequestParam(value = "error", required = false) String error, Model model) {
+    if (error != null) {
+      model.addAttribute("loginError", "Invalid email or password.");
+    }
+    return "users/login";
+  }
+
 }
