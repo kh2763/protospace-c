@@ -1,3 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
 /* ヘッダー全体のスタイル */
 .header {
   background-color: #f0f7ff; /* 薄い水色の背景 */
@@ -77,7 +83,7 @@
 .footer {
   background-color: #8c8c8c; /* 画像に近い落ち着いた灰色 */
   width: 100%;
-  padding: 15px 0;           /* 上下の余白（高さを調整したい場合はここを変更） */
+  padding: 10px 0;           /* 上下の余白（高さを調整したい場合はここを変更） */
   text-align: center;        /* 文字を中央揃えにする */
   box-sizing: border-box;
 }
@@ -92,15 +98,26 @@
 
 /*トップページ*/
 .main {
-  padding: 40px 0;
+  padding: 0;
   background-color: #f9f9f9;
-  height: calc(100vh -120px);
+
+  min-height: 100vh;       /* 最低でも画面縦いっぱいの高さを確保 */
+  display: flex;           /* 中身（ヘッダー・inner・フッター）を並べる */
+  flex-direction: column;  /* 上から下へ縦並び */
+  box-sizing: border-box;
 }
 
 .inner {
   width: 90vw;
   max-width: 1024px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;            /* 余った縦のスペースを自動で吸い取って伸びる */
+
+  /*追記: .main の代わりに、ここで中央コンテンツの上下に 30px の余白を作ります */
+  padding: 30px 0;
+  box-sizing: border-box;
 }
 
 .greeting {
@@ -114,10 +131,14 @@
   display: flex;
   justify-content: space-around;
   
+  /*カードが横並びから溢れたら下に折り返す設定 */
+  flex-wrap: wrap; 
+  gap: 16px; /* カード同士の横の隙間 */
+
 }
 
 .card {
-  width: calc(33.333% - 16px);
+  width: calc(33.333% - 11px);
   min-width: 280px;
   border: 1px solid #dcdcdc;
   background-color: #ffffff;
