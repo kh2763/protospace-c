@@ -10,6 +10,9 @@ public class PrototypeEntity {
     private String concept; 
     private String image;  
     private Integer userId;
+
+    // 💡 UserRepository.findById で取得したユーザー情報を格納するフィールドを追加
+    private UserEntity user;
 }
 
 /*

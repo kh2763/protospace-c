@@ -1,5 +1,6 @@
 package in.tech_camp.protospace_c.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import in.tech_camp.protospace_c.custom_user.CustomUserDetail;
 import in.tech_camp.protospace_c.entity.PrototypeEntity;
 import in.tech_camp.protospace_c.form.PrototypeForm;
 import in.tech_camp.protospace_c.repository.PrototypeRepository;
@@ -54,11 +56,18 @@ public class PrototypeController {
   @PostMapping("/prototypes")
   public String createPrototype(
     @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
-    BindingResult result) {
+    BindingResult result,
+    @AuthenticationPrincipal CustomUserDetail userDetails) {
 
     // 画像の入力チェック
     if (form.getImage() == null || form.getImage().isEmpty()) {
         result.rejectValue("image", "error.image");
+    }
+
+// 💡 ★ここを追加！何のエラーが起きているかをコンソールに全部吐き出させる
+    if (result.hasErrors()) {
+        System.out.println("--- バリデーションエラーが発生しました ---");
+        result.getAllErrors().forEach(System.out::println);
     }
 
     // エラーがあれば、何もせず投稿ページに戻る
@@ -73,7 +82,7 @@ public class PrototypeController {
     // ★ Formに入っている画像ファイルから、ファイル名（文字列）を取り出してEntityにセットするらしい
     pro.setImage(form.getImage().getOriginalFilename());
     // UserIdをセット
-    pro.setUserId(form.getUserId());
+    pro.setUserId(userDetails.getUser().getId());
     
     // 修正 画像の表示についていろいろ
     try {
