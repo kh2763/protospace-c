@@ -8,7 +8,9 @@ public class PrototypeEntity {
     private String title;      
     private String catchcopy;  
     private String concept; 
-    private String image;  
+    //private String image;  
+    private byte[] image;
+    //private Integer userId;
     private Integer userId;
 }
 

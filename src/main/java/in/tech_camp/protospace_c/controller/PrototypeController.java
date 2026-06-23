@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import in.tech_camp.protospace_c.entity.PrototypeEntity;
 import in.tech_camp.protospace_c.form.PrototypeForm;
@@ -21,24 +22,24 @@ public class PrototypeController {
 
   private final PrototypeRepository prototypeRepository;
 
-
-  //仮のトップページ（送信後のリダイレクト先）
+  // トップページ（送信後のリダイレクト先）
   @GetMapping("/")
   public String showTweets(Model model) {
-    //データベースからすべてのプロトタイプを取得して画面に渡す
+    // データベースからすべてのプロトタイプを取得して画面に渡す
     model.addAttribute("prototypes", prototypeRepository.findAll());
 
-    //index.htmlを呼び出す
+    // index.htmlを呼び出す
     return "prototypes/index";
   }
 
-  //投稿ページ移動メソッド
+  // 投稿ページ移動メソッド
   @GetMapping("/prototypes/new")
   public String showPrototypeNew(Model model){
     model.addAttribute("prototypeForm", new PrototypeForm());
     return "prototypes/new";
   }
 
+  // 投稿処理（DB保存後にトップページへ移動）
   //prototypeの詳細ページ移動メソッド
   // @GetMapping("/prototypes/detail/{prototypeId}")
   //   public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
@@ -56,7 +57,7 @@ public class PrototypeController {
     @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
     BindingResult result) {
 
-    // 画像の入力チェック
+    // 画像の入力チェック（ここは今まで通り）
     if (form.getImage() == null || form.getImage().isEmpty()) {
         result.rejectValue("image", "error.image");
     }
@@ -68,33 +69,49 @@ public class PrototypeController {
     
     PrototypeEntity pro = new PrototypeEntity();
     pro.setTitle(form.getTitle());
-    pro.setCatchcopy (form.getCatchcopy ());
+    pro.setCatchcopy(form.getCatchcopy());
     pro.setConcept(form.getConcept());
-    // ★ Formに入っている画像ファイルから、ファイル名（文字列）を取り出してEntityにセットするらしい
-    pro.setImage(form.getImage().getOriginalFilename());
     // UserIdをセット
     pro.setUserId(form.getUserId());
     
-    // 修正 画像の表示についていろいろ
+    // 変更投稿された画像データをデータベースに保存する
     try {
-      // 💡 1. 保存先（static/images/）のパスを作る
-      java.nio.file.Path uploadPath = java.nio.file.Paths.get("src/main/resources/static/images/").toAbsolutePath().normalize();
-      if (!java.nio.file.Files.exists(uploadPath)) {
-          java.nio.file.Files.createDirectories(uploadPath); // なければ自動で作る
-      }
-      
-      // 💡 2. ユーザーから送られてきた本物のファイルを static/images フォルダにコピーする
-      java.nio.file.Path targetLocation = uploadPath.resolve(pro.getImage());
-      java.nio.file.Files.copy(form.getImage().getInputStream(), targetLocation, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-      
-      // 💡 3. ファイルが無事保存できたら、DBに登録する
-      prototypeRepository.insert(pro);
-      
+        // 画像ファイルをデータ（バイト配列）に変換してエンティティにセットする
+        pro.setImage(form.getImage().getBytes());
+        
+        // データベースに情報を登録する
+        prototypeRepository.insert(pro);
+        
     } catch (Exception e) {
-      System.out.println("エラー：" + e);
-      return "redirect:/";
+        // エラーが発生した場合はログに出力し、トップページへ戻る
+        System.out.println("データ変換エラー：" + e);
+        return "redirect:/";
     }
+    
+    // 正常に終了した場合はトップページへ移動する
 
     return "redirect:/";
+  }
+
+  //指定されたIDに一致する画像データをデータベースから読み込んで画面に返す
+  @GetMapping("/prototypes/image/{id}")
+  @ResponseBody
+  public org.springframework.http.ResponseEntity<byte[]> displayImage(@PathVariable Integer id) {
+      try {
+          // データベースから、指定されたIDのデータを1件だけ直接取得する
+          PrototypeEntity image = prototypeRepository.findById(id);
+          
+          // データが存在し、画像が登録されている場合
+          if (image != null && image.getImage() != null) {
+              // 取得したデータに「画像ファイルである」という情報を付けて画面へ返す
+              return org.springframework.http.ResponseEntity.ok()
+                      .contentType(org.springframework.http.MediaType.IMAGE_PNG)
+                      .body(image.getImage());
+          }
+      } catch (Exception e) {
+          // エラーが発生した場合は、その内容をコンソール（ログ）に出力する
+          System.out.println("画像読み込みエラー: " + e);
+      }
+      return null;
   }
 }
