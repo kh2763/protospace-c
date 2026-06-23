@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import in.tech_camp.protospace_c.entity.PrototypeEntity;
@@ -38,6 +39,17 @@ public class PrototypeController {
     model.addAttribute("prototypeForm", new PrototypeForm());
     return "prototypes/new";
   }
+
+  //prototypeの詳細ページ移動メソッド
+  @GetMapping("/prototypes/detail/{prototypeId}")
+    public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
+      CommentForm commentForm = new CommentForm();
+      model.addAttribute("prototype", prototype);
+      model.addAttribute("commentForm", commentForm);
+      model.addAttribute("comments", prototype.getComments());
+      return "prototypes/detail";
+  }
+
 
   //投稿処理（DB保存後にトップページへ移動）
   @PostMapping("/prototypes")

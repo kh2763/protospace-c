@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+  <head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <title>ProtoSpace</title>
+  </head>
+
+  <body>
+    <div th:insert="~{header :: header}"></div>
+
+<main class="main-content">
+  <div class="content_post" th:style="'background-image: url(' + (${prototype.image}) + ');'">
+
+        <h2 class="proto-title" th:text="${prototype.title}">ウェブアプリ１</h2>
+
+        <p class="proto-author">
+           by <a th:href="@{/users/{id}(id=${prototype.userId})}" class="author-link" th:text="${prototype.authorName}">名前</a>
+        </p>
+        
+          <div class="action-buttons">
+               <button class="btn btn-outline">編集する</button>
+               <button class="btn btn-outline">削除する</button>
+          </div>
+
+          <div class="proto-image-container">
+                <div class="proto-image-placeholder"></div>
+          </div>  
+
+  <section class="proto-section">
+    <h3 class="section-title">キャッチコピー</h3>
+    <p class="section-text" th:text="${prototype.catchCopy}">テキストテキストテキストテキスト</p>
+  </section>
+
+  <section class="proto-section">
+    <h3 class="section-title">コンセプト</h3>
+    <p class="section-text concept-text" th:text="${prototype.concept}">
+        テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+    </p>
+  </section>
+
+    <div class="container">
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+      <div th:if="${errorMessages}" th:each="error : ${errorMessages}">
+        <div th:text="${error.defaultMessage}"></div>
+      </div>
+      <form th:action="@{/prototypes/{prototypeId}/comment(prototypeId=${prototype.id})}" method="post" th:object="${commentForm}">
+        <textarea id="text" th:field="*{text}" placeholder="コメントする" rows="2"></textarea>
+        <input type="submit" value="SEND">
+      </form>
+    </div>
+    <div th:if="${#authorization.expression('!isAuthenticated()')}"></div>
+
+    <div class="comments">
+      <h4>＜コメント一覧＞</h4>
+      <div th:each="comment:${comments}">
+        <p>
+          <strong>
+            <a th:href="@{/users/{userId}(userId=${comment.user.id})}" th:text="${comment.user.user_name}"></a>：
+          </strong>
+          <span th:text="${comment.text}"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div th:insert="~{footer :: footer}"></div>
+
+  </body>
+
+</html>
