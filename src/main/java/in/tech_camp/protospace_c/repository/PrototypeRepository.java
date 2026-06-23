@@ -18,5 +18,4 @@ public interface  PrototypeRepository {
   @Select("SELECT * FROM prototype")
   List<PrototypeEntity> findAll();
 }
-}
 

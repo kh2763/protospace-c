@@ -123,6 +123,31 @@ a {
     font-size: 10px
 }
 
+/*ログアウトボタン*/
+.logout__btn {
+  background: none;
+  color: #38a1ff;
+  border: none;
+}
+
+.logout__btn:hover {
+  background: none;
+  color: #96c3eb;
+  border: none;
+}
+
+/*New Protoボタン*/
+.New-Proto__btn {
+  background-color: #ffffff;
+  color: #38a1ff;
+  border: 1px solid #38a1ff;
+}
+
+.New-Proto__btn:hover {
+  background-color: #38a1ff;
+  color: #ffffff;
+}
+
 @media (max-width: 1024px) {
     .inner {
         width:90%;

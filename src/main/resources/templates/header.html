@@ -7,13 +7,13 @@
       </a>
     </div>
 
-    <div class="header_nav" th:if="${#authorization.expression('isAuthenticated()')}">
+    <div class="header__nav" th:if="${#authorization.expression('isAuthenticated()')}">
       <span>
         <form th:action="@{/logout}" method="post">
-          <input class="logout-btn" type="submit" value="ログアウト"/>
+          <input class="header__btn logout__btn" type="submit" value="ログアウト"/>
         </form>
       </span>
-      <a class="post" th:href="@{/prototypes/new}">投稿する</a>
+      <a class="header__btn New-Proto__btn" th:href="@{/prototypes/new}">New Proto</a>
     </div>
     
     <div class="header__nav" th:if="${#authorization.expression('!isAuthenticated()')}">
