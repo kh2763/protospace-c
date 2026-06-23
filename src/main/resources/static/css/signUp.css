@@ -1,6 +1,123 @@
-* {
-    box-sizing: border-box
+/* 以下部分テンプレート */
+
+/* ヘッダー全体のスタイル */
+.header {
+  background-color: #f0f7ff; /* 薄い水色の背景 */
+  width: 100%;
+  box-sizing: border-box;
 }
+
+/* ヘッダー内部のレイアウト（左右に要素を配置） */
+.header__inner {
+  max-width: 1200px; /* 画面幅に応じた最大幅 */
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ロゴのスタイル */
+.header__logo {
+  margin: 0;
+  line-height: 1;
+}
+
+.header__logo a {
+  display: block;
+}
+
+.header__logo-img {
+  height: 40px; /* 必要に応じて画像のサイズを調整してください */
+  display: block;
+}
+
+/* ボタンエリアのスタイル */
+.header__nav {
+  display: flex;
+  gap: 15px; /* ボタン同士の間隔 */
+}
+
+/* ボタン共通のスタイル */
+.header__btn {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* ログインボタン（白背景、青枠） */
+.header__btn--login {
+  background-color: #ffffff;
+  color: #38a1ff;
+  border: 1px solid #38a1ff;
+}
+
+.header__btn--login:hover {
+  background-color: #38a1ff;
+  color: #ffffff;
+}
+
+/* 新規登録ボタン（青背景、白文字） */
+.header__btn--signup {
+  background-color: #38a1ff;
+  color: #ffffff;
+  border: 1px solid #38a1ff;
+}
+
+.header__btn--signup:hover {
+  background-color: #258ee0;
+  border-color: #258ee0;
+}
+
+/*ログアウトボタン*/
+.logout__btn {
+  background: none;
+  color: #38a1ff;
+  border: none;
+}
+
+.logout__btn:hover {
+  background: none;
+  color: #96c3eb;
+  border: none;
+}
+
+/*New Protoボタン*/
+.New-Proto__btn {
+  background-color: #ffffff;
+  color: #38a1ff;
+  border: 1px solid #38a1ff;
+}
+
+.New-Proto__btn:hover {
+  background-color: #38a1ff;
+  color: #ffffff;
+}
+
+
+
+/* フッター全体のスタイル */
+.footer {
+  background-color: #8c8c8c; /* 画像に近い落ち着いた灰色 */
+  width: 100%;
+  padding: 10px 0;           /* 上下の余白（高さを調整したい場合はここを変更） */
+  text-align: center;        /* 文字を中央揃えにする */
+  box-sizing: border-box;
+}
+
+/* フッター内の文字スタイル */
+.footer__text {
+  color: #ffffff;            /* 文字色を白に */
+  font-size: 13px;           /* 文字の大きさ */
+  margin: 0;                 /* 余計な隙間を消す */
+  font-family: sans-serif;   /* フォントの種類 */
+}
+
+/* ここまで */
 
 html,body,ul,li,h1,h2,p,div {
     margin: 0;
@@ -37,45 +154,6 @@ a {
     margin: 0 auto
 }
 
-.nav {
-    width: 100%;
-    display: flex;
-    justify-content: space-between
-}
-
-.logo {
-    width: 200px
-}
-
-.nav__btn {
-    display: inline-block;
-    padding: 0.4em 1.6em;
-    font-size: 0.8em;
-    color: #87CEFA;
-    text-decoration: none;
-    user-select: none;
-    border: 1px #87CEFA solid;
-    border-radius: 3px;
-    transition: 0.4s ease
-}
-
-.nav__btn:hover {
-    color: #fff;
-    background: #87CEFA
-}
-
-.nav__logout {
-    display: inline-block;
-    padding: 0.4em 1.6em;
-    font-size: 0.8em;
-    color: #87CEFA;
-    text-decoration: none;
-    user-select: none
-}
-
-.nav__logout:hover {
-    opacity: 0.5
-}
 
 .form__wrapper {
     min-height: calc(100vh - 161px);
@@ -110,91 +188,4 @@ a {
 .form__btn:hover {
     box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2),0 1px 8px 0 rgba(0,0,0,0.12);
     cursor: pointer
-}
-
-.footer {
-    background-color: #999;
-    padding: 10px 0
-}
-
-.copyright {
-    text-align: center;
-    color: #fff;
-    font-size: 10px
-}
-
-/*ログアウトボタン*/
-.logout__btn {
-  background: none;
-  color: #38a1ff;
-  border: none;
-}
-
-.logout__btn:hover {
-  background: none;
-  color: #96c3eb;
-  border: none;
-}
-
-/*New Protoボタン*/
-.New-Proto__btn {
-  background-color: #ffffff;
-  color: #38a1ff;
-  border: 1px solid #38a1ff;
-}
-
-.New-Proto__btn:hover {
-  background-color: #38a1ff;
-  color: #ffffff;
-}
-
-@media (max-width: 1024px) {
-    .inner {
-        width:90%;
-        margin: 0 auto
-    }
-
-    .page-heading {
-        font-size: 24px
-    }
-
-    .card {
-        width: 48%;
-        margin-bottom: 40px
-    }
-
-    .prototype_image {
-        width: 60%
-    }
-}
-
-@media (max-width: 599px) {
-    .logo {
-        width:120px
-    }
-
-    .page-heading {
-        font-size: 20px
-    }
-
-    .card {
-        width: 100%;
-        margin-bottom: 60px
-    }
-
-    .card__title {
-        font-size: 18px
-    }
-
-    .card__summary {
-        font-size: 14px
-    }
-
-    .prototype_image {
-        width: 100%
-    }
-
-    .table {
-        width: 100%
-    }
 }
