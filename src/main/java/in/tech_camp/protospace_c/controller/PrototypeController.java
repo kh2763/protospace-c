@@ -6,7 +6,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,10 +40,22 @@ public class PrototypeController {
   }
 
   // 投稿処理（DB保存後にトップページへ移動）
+  //prototypeの詳細ページ移動メソッド
+  // @GetMapping("/prototypes/detail/{prototypeId}")
+  //   public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
+  //     CommentForm commentForm = new CommentForm();
+  //     model.addAttribute("prototype", prototype);
+  //     model.addAttribute("commentForm", commentForm);
+  //     model.addAttribute("comments", prototype.getComments());
+  //     return "prototypes/detail";
+  // }
+
+
+  //投稿処理（DB保存後にトップページへ移動）
   @PostMapping("/prototypes")
   public String createPrototype(
-      @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
-      BindingResult result) {
+    @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
+    BindingResult result) {
 
     // 画像の入力チェック（ここは今まで通り）
     if (form.getImage() == null || form.getImage().isEmpty()) {
@@ -60,6 +71,8 @@ public class PrototypeController {
     pro.setTitle(form.getTitle());
     pro.setCatchcopy(form.getCatchcopy());
     pro.setConcept(form.getConcept());
+    // UserIdをセット
+    pro.setUserId(form.getUserId());
     
     // 変更投稿された画像データをデータベースに保存する
     try {
@@ -76,6 +89,7 @@ public class PrototypeController {
     }
     
     // 正常に終了した場合はトップページへ移動する
+
     return "redirect:/";
   }
 

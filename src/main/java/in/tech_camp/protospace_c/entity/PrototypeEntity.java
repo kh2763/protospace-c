@@ -11,6 +11,7 @@ public class PrototypeEntity {
     //private String image;  
     private byte[] image;
     //private Integer userId;
+    private Integer userId;
 }
 
 /*
