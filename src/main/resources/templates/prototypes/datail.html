@@ -10,28 +10,35 @@
   <body>
     <div th:insert="~{header :: header}"></div>
 
-<div class="contents row">
+<main class="main-content">
   <div class="content_post" th:style="'background-image: url(' + (${prototype.image}) + ');'">
 
-   <div th:if="${#authorization.expression('isAuthenticated()') and #authentication?.principal.getId() == prototype.user.id}">
-    <div class="more">
-      <span><img th:src="@{/images/arrow_top.png}" /></span>
-      <ul>
+        <h2 class="proto-title" th:text="${prototype.title}">ウェブアプリ１</h2>
 
-      </ul>
-    </div>
-    </div>
+        <p class="proto-author">
+           by <a th:href="@{/users/{id}(id=${prototype.userId})}" class="author-link" th:text="${prototype.authorName}">名前</a>
+        </p>
+        
+          <div class="action-buttons">
+               <button class="btn btn-outline">編集する</button>
+               <button class="btn btn-outline">削除する</button>
+          </div>
 
-        <h2 th:text="${prototype.title}"></h2>
-        <p class="catchcopy" th:text="${prototype.catchcopy}"></p>
-        <p class="concept" th:text="${prototype.concept}"></p>
+          <div class="proto-image-container">
+                <div class="proto-image-placeholder"></div>
+          </div>  
 
-    <span class="name">
-      <a th:href="@{/users/{id}(id=${prototype.user.id})}">
-        <span>投稿者</span><span th:text="${prototype.user.user_name}"></span>
-      </a>
-    </span>
-  </div>
+  <section class="proto-section">
+    <h3 class="section-title">キャッチコピー</h3>
+    <p class="section-text" th:text="${prototype.catchCopy}">テキストテキストテキストテキスト</p>
+  </section>
+
+  <section class="proto-section">
+    <h3 class="section-title">コンセプト</h3>
+    <p class="section-text concept-text" th:text="${prototype.concept}">
+        テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+    </p>
+  </section>
 
     <div class="container">
     <div th:if="${#authorization.expression('isAuthenticated()')}">
