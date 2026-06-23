@@ -16,7 +16,7 @@
           こんにちは、
         
 
-        <a th:href="@{#}" class="greeting__link" sec:authentication="principal.username">ユーザー名</a>さん
+        <a th:href="@{#}" class="greeting__link" th:text="${#authentication.principal.nickname}">ユーザー名</a>さん
        </div>
        <div class="card__wrapper">
         <div class="card" th:each="prototype : ${prototypes}">
