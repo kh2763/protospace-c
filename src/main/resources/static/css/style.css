@@ -1,169 +1,155 @@
-/* ヘッダー全体のスタイル */
-.header {
-  background-color: #f0f7ff; /* 薄い水色の背景 */
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* ヘッダー内部のレイアウト（左右に要素を配置） */
-.header__inner {
-  max-width: 1200px; /* 画面幅に応じた最大幅 */
-  margin: 0 auto;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* ロゴのスタイル */
-.header__logo {
+/*トップページの基本設定*/
+body {
   margin: 0;
-  line-height: 1;
-}
-
-.header__logo a {
-  display: block;
-}
-
-.header__logo-img {
-  height: 40px; /* 必要に応じて画像のサイズを調整してください */
-  display: block;
-}
-
-/* ボタンエリアのスタイル */
-.header__nav {
-  display: flex;
-  gap: 15px; /* ボタン同士の間隔 */
-}
-
-/* ボタン共通のスタイル */
-.header__btn {
-  display: inline-block;
-  padding: 8px 24px;
-  border-radius: 4px;
-  font-size: 14px;
-  text-decoration: none;
-  text-align: center;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-/* ログインボタン（白背景、青枠） */
-.header__btn--login {
-  background-color: #ffffff;
-  color: #38a1ff;
-  border: 1px solid #38a1ff;
-}
-
-.header__btn--login:hover {
-  background-color: #38a1ff;
-  color: #ffffff;
-}
-
-/* 新規登録ボタン（青背景、白文字） */
-.header__btn--signup {
-  background-color: #38a1ff;
-  color: #ffffff;
-  border: 1px solid #38a1ff;
-}
-
-.header__btn--signup:hover {
-  background-color: #258ee0;
-  border-color: #258ee0;
-}
-
-
-
-/* フッター全体のスタイル */
-.footer {
-  background-color: #8c8c8c; /* 画像に近い落ち着いた灰色 */
-  width: 100%;
-  padding: 15px 0;           /* 上下の余白（高さを調整したい場合はここを変更） */
-  text-align: center;        /* 文字を中央揃えにする */
-  box-sizing: border-box;
-}
-
-/* フッター内の文字スタイル */
-.footer__text {
-  color: #ffffff;            /* 文字色を白に */
-  font-size: 13px;           /* 文字の大きさ */
-  margin: 0;                 /* 余計な隙間を消す */
-  font-family: sans-serif;   /* フォントの種類 */
-}
-
-/*トップページ*/
-.main {
-  padding: 40px 0;
-  background-color: #f9f9f9;
-  height: calc(100vh -120px);
-}
-
-.inner {
-  width: 90vw;
-  max-width: 1024px;
-  margin: 0 auto;
-}
-
-.greeting {
-  font-size: 16px;
-  margin-bottom: 24px;
+  padding: 0;
+  font-family: sans-serif;
   color: #333;
+  background-color: #f8f9fa;
 }
 
-/* 一覧を含むコンテナ */
-.card__wrapper {
-  display: flex;
-  justify-content: space-around;
-  
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.card {
-  width: calc(33.333% - 16px);
-  min-width: 280px;
-  border: 1px solid #dcdcdc;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  
-}
+/* ==========================================
+   ヘッダー部分（Flexboxで左右に配置）
+   ========================================== */
+   .header {
+    display: flex;
+    /*ロゴとボタンを左右に寄せる*/
+    justify-content: space-between;
+    /*上下の中央に揃える*/
+    align-items: center;
+    /*内側に余白を作る*/
+    padding: 20px 40px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+   }
 
-.card__img {
-  width: 100%;
-  height: 180px;
-  display: block;
-  background-color: #f5f8fa;
-}
+   .header-logo {
+    font-weight: bold;
+    letter-spacing: 2px;
 
+   }
 
-/* テキストの詳細部分のコンテナ*/
-.card__body {
-  padding: 16px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
+   .header-nav {
+    display: flex;
+    /*ログアウトとボタンの上下中央をそろえる*/
+    align-items: center;
+   }
 
-}
+   .nav-link-logout {
+    /*右側に間隔をあける*/
+    margin-right: 20px;
+    color: #007bff;
+   }
 
-/*プロトタイプ名*/
-.card__title {
+   .nav-btn-new {
+    padding: 8px 16px;
+    /*ボタンの内側に余白を作る*/
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    color: #007bff;
+   }
+
+   /* ==========================================
+   ヘッダー部分（Flexboxで左右に配置）
+   ========================================== */
+   .main-content {
+     width: 90%;
+     /*画面が多きkなりすぎないように制限*/
+     max-width: 1200px;
+     /*画面の中央に配置する*/
+     margin: 0 auto;
+     /*上下に余白を作る*/
+     padding: 40px 0;
+   }
+
+   .welcome-message {
+    /*下の一覧との間隔をあける*/
+    margin-bottom: 40px;
+    font-size: 16px;
+   }
+
+   .welcome-message a {
+    text-decoration: underline;
+   }
+
+   /* ==========================================
+   プロトタイプ一覧（3カラムの横並び）
+   ========================================== */
+   .prototype-grid {
+    display: flex;
+    /*画面が狭くなったら折り返す*/
+    flex-wrap: wrap;
+    /*カード同士を等間隔に配置*/
+    justify-content: space-between;
+   }
+
+   /*各プロトタイプカード（３つ並ぶ）*/
+   .prototype-card {
+    width: 31%;
+    /*下に余白をつくる*/
+    margin-bottom: 40px;
+    background-color: #ffffff;
+    /*paddingを含んだ幅計算*/
+    box-sizing: border-box;
+   }
+
+   /*画像*/
+   .prototype-image-wrapper {
+    width: 100%;
+    /*見本画像*/
+    background-color: #a5dfdf;
+    padding: 20px;
+    box-sizing: border-box;
+   }
+
+   .prototype-image {
+    /*横幅いっぱいに広げる？*/
+    width: 100%;
+    display: block;
+
+   }
+
+   /* テキスト情報（4つの条件を満たす配置） */
+.prototype-title {
   font-size: 18px;
-  font-weight: bold;
-  color: #333333;
-  text-decoration: none;
-  display: block;
+  /* 上下に適切なマージンを設定 */
+  margin: 15px 0 5px 0;
 }
 
-/*キャッチコピー*/
-.card__summary {
+.prototype-catchphrase {
   font-size: 14px;
-  color: #657786;
-  margin: 0;
-
+  color: #666;
+  margin: 0 0 10px 0;
 }
 
-/*投稿者名*/
-.card__user {
+.prototype-author {
   font-size: 12px;
-  color: #657786;
-  text-decoration: none;
-  display: block;
+  color: #999;
+  /* 右寄せにする */
+  text-align: right;            
+  margin: 0;
+  
+}
+
+/* ==========================================
+   フッター部分
+   ========================================== */
+.footer {
+  /* グレーの背景 */
+  background-color: #888888;    
+  color: #ffffff;
+  /* 文字を中央揃えにする */
+  text-align: center;  
+  /* 上下に余白を作る */         
+  padding: 15px 0;         
+  margin-top: 40px;
+}
+
+.copyright {
+  font-size: 12px;
+  margin: 0;
 }
