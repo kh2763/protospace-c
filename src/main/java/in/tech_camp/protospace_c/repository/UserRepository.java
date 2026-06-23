@@ -19,4 +19,7 @@ public interface UserRepository {
 
   @Select("SELECT * FROM users WHERE email = #{email}")
   UserEntity findByEmail(String email);
+
+  @Select("SELECT * FROM users WHERE id = #{id}")
+  UserEntity findById(Integer id);
 }
