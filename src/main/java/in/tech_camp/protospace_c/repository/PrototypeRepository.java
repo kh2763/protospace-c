@@ -15,3 +15,5 @@ public interface PrototypeRepository {
   List<PrototypeEntity> findAll();
   
 }
+}
+
