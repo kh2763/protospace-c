@@ -1,5 +1,6 @@
 package in.tech_camp.protospace_c.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import in.tech_camp.protospace_c.custom_user.CustomUserDetail;
 import in.tech_camp.protospace_c.entity.PrototypeEntity;
 import in.tech_camp.protospace_c.form.PrototypeForm;
 import in.tech_camp.protospace_c.repository.PrototypeRepository;
@@ -54,8 +56,10 @@ public class PrototypeController {
   //投稿処理（DB保存後にトップページへ移動）
   @PostMapping("/prototypes")
   public String createPrototype(
-      @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
-      BindingResult result) {
+    @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
+    BindingResult result,
+    // 認証済みの CustomUserDetail オブジェクトを直接受け取る
+    @AuthenticationPrincipal CustomUserDetail loginUser) {
 
     // 画像の入力チェック
     if (form.getImage() == null || form.getImage().isEmpty()) {
@@ -73,6 +77,8 @@ public class PrototypeController {
     pro.setConcept(form.getConcept());
     // ★ Formに入っている画像ファイルから、ファイル名（文字列）を取り出してEntityにセットするらしい
     pro.setImage(form.getImage().getOriginalFilename());
+    // UserIdをセット
+    pro.setUserId(loginUser.getUser().getId());
     
     // 修正 画像の表示についていろいろ
     try {
@@ -92,7 +98,5 @@ public class PrototypeController {
     } catch (Exception e) {
       System.out.println("エラー：" + e);
       return "redirect:/";
-    }
-    return "redirect:/";
   }
 }
