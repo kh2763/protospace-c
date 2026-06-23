@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import in.tech_camp.protospace_c.custom_user.CustomUserDetail;
@@ -41,8 +42,18 @@ public class PrototypeController {
     return "prototypes/new";
   }
 
-  
-  // 投稿処理（DB保存後にトップページへ移動）
+  //prototypeの詳細ページ移動メソッド
+  @GetMapping("/prototypes/detail/{prototypeId}")
+    public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
+      CommentForm commentForm = new CommentForm();
+      model.addAttribute("prototype", prototype);
+      model.addAttribute("commentForm", commentForm);
+      model.addAttribute("comments", prototype.getComments());
+      return "prototypes/detail";
+  }
+
+
+  //投稿処理（DB保存後にトップページへ移動）
   @PostMapping("/prototypes")
   public String createPrototype(
     @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
@@ -50,32 +61,42 @@ public class PrototypeController {
     // 認証済みの CustomUserDetail オブジェクトを直接受け取る
     @AuthenticationPrincipal CustomUserDetail loginUser) {
 
-      // 画像の入力チェック
-      if (form.getImage() == null || form.getImage().isEmpty()) {
-          result.rejectValue("image", "error.image");
-      }
+    // 画像の入力チェック
+    if (form.getImage() == null || form.getImage().isEmpty()) {
+        result.rejectValue("image", "error.image");
+    }
 
-      // エラーがあれば、何もせず投稿ページに戻る
-      if (result.hasErrors()) {
-        return "prototypes/new";
+    // エラーがあれば、何もせず投稿ページに戻る
+    if (result.hasErrors()) {
+      return "prototypes/new";
+    }
+    
+    PrototypeEntity pro = new PrototypeEntity();
+    pro.setTitle(form.getTitle());
+    pro.setCatchcopy (form.getCatchcopy ());
+    pro.setConcept(form.getConcept());
+    // ★ Formに入っている画像ファイルから、ファイル名（文字列）を取り出してEntityにセットするらしい
+    pro.setImage(form.getImage().getOriginalFilename());
+    // UserIdをセット
+    pro.setUserId(loginUser.getUser().getId());
+    
+    // 修正 画像の表示についていろいろ
+    try {
+      // 💡 1. 保存先（static/images/）のパスを作る
+      java.nio.file.Path uploadPath = java.nio.file.Paths.get("src/main/resources/static/images/").toAbsolutePath().normalize();
+      if (!java.nio.file.Files.exists(uploadPath)) {
+          java.nio.file.Files.createDirectories(uploadPath); // なければ自動で作る
       }
       
-      PrototypeEntity pro = new PrototypeEntity();
-      pro.setTitle(form.getTitle());
-      pro.setCatchcopy(form.getCatchcopy());
-      pro.setConcept(form.getConcept());
-      pro.setImage(form.getImage().getOriginalFilename());
+      // 💡 2. ユーザーから送られてきた本物のファイルを static/images フォルダにコピーする
+      java.nio.file.Path targetLocation = uploadPath.resolve(pro.getImage());
+      java.nio.file.Files.copy(form.getImage().getInputStream(), targetLocation, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
       
-      // loginUser から内部の UserEntity を経由してIDをセット
-      // ※ もし CustomUserDetail 内のゲッター名が異なる場合は、loginUser.getId() など環境に合わせて調整
-      pro.setUserId(loginUser.getUser().getId()); 
+      // 💡 3. ファイルが無事保存できたら、DBに登録する
+      prototypeRepository.insert(pro);
       
-      try {
-        prototypeRepository.insert(pro);
-      } catch (Exception e) {
-        System.out.println("エラー：" + e);
-        return "redirect:/";
-      }
+    } catch (Exception e) {
+      System.out.println("エラー：" + e);
       return "redirect:/";
   }
 }

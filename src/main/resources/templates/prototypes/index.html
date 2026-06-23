@@ -16,13 +16,13 @@
           こんにちは、
         
 
-        <a th:href="@{#}" class="greeting__link" sec:authentication="principal.username">ユーザー名</a>さん
+        <a th:href="@{#}" class="greeting__link" th:text="${#authentication.principal.nickname}">ユーザー名</a>さん
        </div>
        <div class="card__wrapper">
         <div class="card" th:each="prototype : ${prototypes}">
 
           <a th:href="@{#}">
-            <img th:src="${prototype.image}" class="card__img" alt="プロトタイプ画像" />
+            <img th:src="@{/images/{filename}(filename=${prototype.image})}" class="card__img" alt="プロトタイプ画像" />
           </a>
           <div class="card__body">
             <a th:href="@{#}" class="card__title" th:text="${prototype.title}">プロトタイプ名</a>
