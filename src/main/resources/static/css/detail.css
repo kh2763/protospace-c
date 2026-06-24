@@ -23,29 +23,16 @@
   text-align: center;      /*   文字自体も確実に中央寄せ */
 }
 
-/* メタ情報エリア：投稿者とボタンを中央寄せで縦並びにする設定 */
-.proto-meta {
-  display: flex;
-  flex-direction: column; /*   左右端から、中央縦並びの配置に変更 */
-  align-items: center;    /*   要素を水平方向の中央に配置 */
-  justify-content: center; /*   縦軸方向でも確実に中央へ配置 */
-  gap: 15px;              /*   投稿者とボタンの間の隙間を設定 */
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e9ecef;
-}
-
 /* 投稿者テキストのスタイル設定 */
 .proto-author {
   font-size: 1.1rem;
-  color: #666;
   margin: 0 auto; /* 左右のマージンをautoにして中央配置を保証 */
   text-align: center; /* ユーザー名テキストを中央寄せ */
 }
 
 /* 投稿者リンクのカラーと太さ設定 */
 .author-link {
-  color: #007bff;
+  color: #3796c9;
   text-decoration: none;
   font-weight: bold;
 }
@@ -65,8 +52,9 @@
 /* ボタン共通の基本スタイル定義 */
 .btn {
   display: inline-block;
-  padding: 5px 12px;
-  font-size: 0.8rem;
+  color: #983b84;
+  padding: 5px 8px;
+  font-size: 0.6rem;
   font-weight: 600;
   border-radius: 4px;
   text-decoration: none;
@@ -92,20 +80,12 @@
   display: block;
 }
 
-/* 詳細文章全体の背景色と余白設定 */
-.proto-details-body {
-  background-color: #fff;
-  padding: 10px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /*   各セクションを中央に寄せるための設定 */
-}
 
-/* 各セクション（キャッチコピー・コンセプト）の下部マージンと幅の設定 */
+/* 各セクション（キャッチコピー・コンセプト）の下部マージンと幅の設定（中央配置に対応） */
 .proto-section {
-  margin-bottom: 35px;
+  margin: 0 auto 35px auto; /* 💡 左右のmarginをautoにすることで、エリア（広場）ごと中央に配置 */
   width: 100%;
-  max-width: 650px; /*   長文が横に広がりすぎないよう読みやすい幅に制限 */
+  max-width: 650px;         /* 長文が横に広がりすぎないよう読みやすい幅に制限 */
 }
 
 /* セクションの小見出し：下線とフォントサイズの設定（中央寄せ対応） */
