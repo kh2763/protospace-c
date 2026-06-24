@@ -23,6 +23,6 @@ public interface UserRepository {
   @Select("SELECT id, email, password, user_name AS userName, profile, team, job_title AS jobTitle FROM users WHERE email = #{email}")
   UserEntity findByEmail(String email);
 
-  @Select("SELECT * FROM users WHERE id = #{id}")
+  @Select("SELECT id, email, password, user_name AS userName, profile, team, job_title AS jobTitle FROM users WHERE id = #{id}")
   UserEntity findById(Integer id);
 }

@@ -100,11 +100,9 @@ public class UserController {
       model.addAttribute("user", user);
 
       // 2. そのユーザーが投稿したプロトタイプ一覧をデータベースから取得して画面に渡す
-      // ※現在は一旦、そのユーザーのID（userId）を元に全件取得する想定のダミーを置いておきます
-      model.addAttribute("prototypes", prototypeRepository.findByUserId(id));
+      model.addAttribute("prototypes", prototypeRepository.findByUserIdWithUser(id));
 
       // 3. マイページのHTML（渡したUserFormの記述があるHTML）を呼び出す
-      // フォルダ構造に合わせて変更してください（例: "users/show" など）
       return "users/mypage"; 
   }
 

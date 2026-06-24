@@ -33,7 +33,7 @@
               <p class="card__summary" th:text="${prototype.catchcopy}">キャッチコピー</p>
 
               <!--投稿者名-->
-              <a th:href="@{#}" class="card__user" th:text="'by ' + ${prototype.user.userName}">by 投稿者</a>
+              <a th:href="@{/users/{id}(id=${prototype.user.id})}" class="card__user" th:text="'by ' + ${prototype.user.userName}">by 投稿者</a>
             </div>
 
           </div>
