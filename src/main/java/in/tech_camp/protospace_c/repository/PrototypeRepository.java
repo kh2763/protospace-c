@@ -48,4 +48,13 @@ public interface PrototypeRepository {
   @Select("SELECT * FROM prototype WHERE id = #{id}")
   @ResultMap("prototypeWithUser") 
   PrototypeEntity findById(Integer id); // 詳細ページ用（1件）
+
+
+  //JOINで安全に取得する新しいメソッドを追加する
+  @Select("SELECT p.id, p.title, p.catchcopy, p.concept, p.image, p.user_id AS userId, " +
+    "u.id AS \"user.id\", u.user_name AS \"user.userName\" " +
+    "FROM prototype p " +
+    "LEFT JOIN users u ON p.user_id = u.id " +
+    "WHERE p.user_id = #{userId}")
+  List<PrototypeEntity> findByUserIdWithUser(Integer userId);
 }
