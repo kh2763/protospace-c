@@ -217,3 +217,35 @@ body {
   display: block;
   text-align: right;
 }
+
+
+
+/* --- ユーザー詳細画面 --- */
+
+/* テーブル全体の見た目を整える */
+.user-info-table {
+  width: 100%;             /* 横幅いっぱいに広げる */
+  max-width: 600px;        /* 広がりすぎないように最大幅を制限してスマートに */
+  margin-bottom: 40px;     /* 下の見出しとの間にほどよい隙間を作る */
+  border-collapse: collapse; /* 💡 テーブルの枠線の隙間をなくして一本線にする設定 */
+}
+
+/* 各行（tr）の下側に細い線を引く */
+.user-info-table tr {
+  border-bottom: 1px solid #5c5f61; /* グレーの境界線 */
+}
+
+/* 項目名（th）のスタイル調整 */
+.user-info-table th {
+  width: 25%;              /* 💡 ★ここでお好みの幅（25%など）に指定して狭めています */
+  text-align: left;        /* 文字を左寄せにする */
+  padding: 12px 8px;       /* 上下に適度な余白を作って見やすく */
+  color: #333333;          /* 文字色 */
+  font-weight: bold;
+}
+
+/* データ部分（td）のスタイル調整 */
+.user-info-table td {
+  padding: 12px 8px;       /* thと高さを合わせるための余白 */
+  color: #4a4a4a;          /* 少しだけ柔らかい文字色に */
+}

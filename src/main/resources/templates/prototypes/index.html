@@ -15,7 +15,7 @@
         <!--左上の挨拶メッセージ-->
         <div sec:authorize="isAuthenticated()" class="greeting">
           こんにちは、
-          <a th:href="@{#}" class="greeting__link" th:text="${#authentication.principal.nickname}">ユーザー名</a>さん
+          <a th:href="@{/users/{id}(id=${#authentication.principal.user.id})}" class="greeting__link" th:text="${#authentication.principal.nickname}">ユーザー名</a>さん
         </div>
 
         <div class="card__wrapper">
