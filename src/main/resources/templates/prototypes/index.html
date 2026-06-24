@@ -12,6 +12,7 @@
 
       <div class="inner">
         
+        <!--左上の挨拶メッセージ-->
         <div sec:authorize="isAuthenticated()" class="greeting">
           こんにちは、
           <a th:href="@{#}" class="greeting__link" th:text="${#authentication.principal.nickname}">ユーザー名</a>さん
@@ -20,15 +21,19 @@
         <div class="card__wrapper">
           <div class="card" th:each="prototype : ${prototypes}">
   
+              <!--投稿画像-->
             <a th:href="@{#}">
               <img th:src="@{/prototypes/image/{id}(id=${prototype.id})}" class="card__img" alt="プロトタイプ画像" />
             </a>
             
-            <div class="card__body">
+         <div class="card__body">
+              <!--投稿内容-->
               <a th:href="@{#}" class="card__title" th:text="${prototype.title}">プロトタイプ名</a>
               
+              <!--キャッチコピー-->
               <p class="card__summary" th:text="${prototype.catchcopy}">キャッチコピー</p>
 
+              <!--投稿者名-->
               <a th:href="@{#}" class="card__user" th:text="'by ' + ${prototype.user.userName}">by 投稿者</a>
             </div>
 
