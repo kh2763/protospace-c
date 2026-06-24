@@ -14,9 +14,12 @@ public interface UserRepository {
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void insert(UserEntity userEntity);
 
+  // Emailの一意性のチェック
   @Select("SELECT EXISTS(SELECT 1 FROM users WHERE email = #{email})")
   boolean existsByEmail(String email);
 
+  // ログイン時に入力してもらうemailの情報からユーザーを見つける
+  // スネークケースによるエラー解決のためAS句で名前変更
   @Select("SELECT id, email, password, user_name AS userName, profile, team, job_title AS jobTitle FROM users WHERE email = #{email}")
   UserEntity findByEmail(String email);
 
