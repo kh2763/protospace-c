@@ -134,7 +134,7 @@ body {
 
 .inner {
   width: 90vw;
-  max-width: 1024px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -159,12 +159,13 @@ body {
   
   /*カードが横並びから溢れたら下に折り返す設定 */
   flex-wrap: wrap; 
-  gap: 16px; /* カード同士の横の隙間 */
+  gap: 30px 20px ; /* カード同士の横の隙間 */
 
 }
 
 .card {
-  width: calc(33.333% - 11px);
+  width: 100%;
+  max-width: 350px;
   min-width: 280px;
   border: 1px solid #dcdcdc;
   background-color: #ffffff;
