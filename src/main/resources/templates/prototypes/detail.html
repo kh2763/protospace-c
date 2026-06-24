@@ -11,26 +11,33 @@
     <div th:insert="~{header :: header}"></div>
 
 <main class="main-content">
-  <div class="content_post" th:style="'background-image: url(' + (${prototype.image}) + ');'">
 
-        <h2 class="proto-title" th:text="${prototype.title}">ウェブアプリ１</h2>
+  <h2 class="proto-title" th:text="${prototype.title}">ウェブアプリ１</h2>
 
-        <p class="proto-author">
-           by <a th:href="@{/users/{id}(id=${prototype.userId})}" class="author-link" th:text="${prototype.authorName}">名前</a>
-        </p>
+
+    <p class="proto-author">
+      by <a th:href="@{/users/{id}(id=${prototype.userId})}" class="author-link" th:text="${prototype.user.userName}">ユーザー名</a>
+    </p>
         
-          <div class="action-buttons">
-               <button class="btn btn-outline">編集する</button>
-               <button class="btn btn-outline">削除する</button>
-          </div>
+    <div class="action-buttons">
+        <button class="btn btn-outline">編集する</button>
+        <button class="btn btn-outline">削除する</button>
+    </div>
 
-          <div class="proto-image-container">
-                <div class="proto-image-placeholder"></div>
-          </div>  
+    <div class="content_post">
+      <img th:src="@{/prototypes/image/{id}(id=${prototype.id})}" class="prototype-detail-img" alt="プロトタイプ画像" />
+    </div>
+
+    
+
+     
+    <div class="proto-image-container">
+        <div class="proto-image-placeholder"></div>
+    </div>  
 
   <section class="proto-section">
     <h3 class="section-title">キャッチコピー</h3>
-    <p class="section-text" th:text="${prototype.catchCopy}">テキストテキストテキストテキスト</p>
+    <p class="section-text" th:text="${prototype.catchcopy}">テキストテキストテキストテキスト</p>
   </section>
 
   <section class="proto-section">
@@ -40,7 +47,7 @@
     </p>
   </section>
 
-    <div class="container">
+    <!-- コメント機能関連の実装はいったんコメントアウト <div class="container">
     <div th:if="${#authorization.expression('isAuthenticated()')}">
       <div th:if="${errorMessages}" th:each="error : ${errorMessages}">
         <div th:text="${error.defaultMessage}"></div>
@@ -64,7 +71,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 
 
     <div th:insert="~{footer :: footer}"></div>

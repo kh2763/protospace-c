@@ -42,16 +42,16 @@ public class PrototypeController {
     return "prototypes/new";
   }
 
-  // 投稿処理（DB保存後にトップページへ移動）
-  //prototypeの詳細ページ移動メソッド
-  // @GetMapping("/prototypes/detail/{prototypeId}")
-  //   public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
+  //prototypeの詳細ページ移動メソッド コメント機能は全部コメントアウトしました
+    @GetMapping("/prototypes/detail/{prototypeId}")
+    public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {      
+        PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
   //     CommentForm commentForm = new CommentForm();
-  //     model.addAttribute("prototype", prototype);
+        model.addAttribute("prototype", prototype);
   //     model.addAttribute("commentForm", commentForm);
   //     model.addAttribute("comments", prototype.getComments());
-  //     return "prototypes/detail";
-  // }
+        return "prototypes/detail";
+  }
 
 
   //投稿処理（DB保存後にトップページへ移動）
