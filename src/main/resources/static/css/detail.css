@@ -1,0 +1,134 @@
+/*ProtoSpace 詳細画面 (detail.css) */
+
+/* メインコンテナのレイアウト設定：中央寄せと最大幅の定義 */
+.detail-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  text-align: center; /*   コンテナ内の基本的なテキスト配置を中央寄せに設定 */
+}
+
+/* タイトルエリア：文字幅に合わせた下線と、完全な中央配置を両立する設定 */
+.proto-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #111;
+  display: block;          /*   inline-blockから変更し、マージンを確実に効かせる */
+  width: fit-content;      /*   幅を文字の長さにぴったり合わせることで下線の長さを調整 */
+  margin: 0 auto 20px auto; /*   左右のmarginをautoにすることで、ブロックごと完全に中央配置 */
+  border-bottom: 4px solid #007bff; /*   中央配置に合わせ、左線から下線のアクセントに変更 */
+  padding-bottom: 8px;
+  text-align: center;      /*   文字自体も確実に中央寄せ */
+}
+
+/* メタ情報エリア：投稿者とボタンを中央寄せで縦並びにする設定 */
+.proto-meta {
+  display: flex;
+  flex-direction: column; /*   左右端から、中央縦並びの配置に変更 */
+  align-items: center;    /*   要素を水平方向の中央に配置 */
+  justify-content: center; /*   縦軸方向でも確実に中央へ配置 */
+  gap: 15px;              /*   投稿者とボタンの間の隙間を設定 */
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* 投稿者テキストのスタイル設定 */
+.proto-author {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0 auto; /* 左右のマージンをautoにして中央配置を保証 */
+  text-align: center; /* ユーザー名テキストを中央寄せ */
+}
+
+/* 投稿者リンクのカラーと太さ設定 */
+.author-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* 投稿者リンクのホバー時に下線を表示する設定 */
+.author-link:hover {
+  text-decoration: underline;
+}
+
+/* アクションボタン：編集・削除ボタンを中央寄せで横並びにする設定 */
+.action-buttons {
+  display: flex;
+  justify-content: center; /* ボタン全体を中央寄せに配置 */
+  gap: 10px;
+}
+
+/* ボタン共通の基本スタイル定義 */
+.btn {
+  display: inline-block;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+
+/* 画像コンテナ：枠の装飾をすべて撤廃し、透明な背景で中央に寄せる設定 */
+.content_post {
+  width: 100%;
+  background-color: transparent;
+  box-shadow: none;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+/* 画像スタイル：等倍（ナチュラル）のサイズで出力し、画面外への溢れを防ぐ安全設定 */
+.prototype-detail-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 詳細文章全体の背景色と余白設定 */
+.proto-details-body {
+  background-color: #fff;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /*   各セクションを中央に寄せるための設定 */
+}
+
+/* 各セクション（キャッチコピー・コンセプト）の下部マージンと幅の設定 */
+.proto-section {
+  margin-bottom: 35px;
+  width: 100%;
+  max-width: 650px; /*   長文が横に広がりすぎないよう読みやすい幅に制限 */
+}
+
+/* セクションの小見出し：下線とフォントサイズの設定（中央寄せ対応） */
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #dee2e6;
+  text-align: center; /*   見出しの文字を中央寄せに設定 */
+}
+
+/* 本文テキスト：行間を広げ、DB内の改行をそのまま画面に反映する設定 */
+.section-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #495057;
+  white-space: pre-wrap;
+  text-align: center; /*   本文の文字を中央寄せに設定 */
+}
+
+/* コンセプト文専用のカラー微調整 */
+.concept-text {
+  color: #555;
+}
