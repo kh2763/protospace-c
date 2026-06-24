@@ -20,7 +20,7 @@
         <div class="card__wrapper">
           <div class="card" th:each="prototype : ${prototypes}">
   
-            <a th:href="@{#}">
+            <a th:href="@{/prototypes/detail/{prototypeId}(prototypeId=${prototype.id})}">
               <img th:src="@{/prototypes/image/{id}(id=${prototype.id})}" class="card__img" alt="プロトタイプ画像" />
             </a>
             
