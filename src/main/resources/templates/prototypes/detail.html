@@ -19,7 +19,7 @@
       by <a th:href="@{/users/{id}(id=${prototype.userId})}" class="author-link" th:text="${prototype.user.userName}">ユーザー名</a>
     </p>
         
-    <div class="action-buttons">
+    <div class="action-buttons"th:if="${#authorization.expression('isAuthenticated()') and #authentication?.principal.getId() == prototype.user.id}">
         <button class="btn btn-outline">編集する</button>
         <button class="btn btn-outline">削除する</button>
     </div>
