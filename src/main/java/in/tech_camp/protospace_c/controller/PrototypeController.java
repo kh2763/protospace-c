@@ -124,4 +124,16 @@ public class PrototypeController {
       }
       return null;
   }
+
+  @PostMapping("/prototypes/{prototypeId}/delete")
+  public String deleteTweet(@PathVariable("prototypeId") Integer prototypeId) {
+    
+    try {
+      prototypeRepository.deleteById(prototypeId);
+    } catch (Exception e) {
+      System.out.println("エラー：" + e);
+      return "redirect:/";
+    }
+    return "redirect:/";
+  }
 }
