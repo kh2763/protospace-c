@@ -66,12 +66,6 @@ public class PrototypeController {
         result.rejectValue("image", "error.image");
     }
 
-// 💡 ★ここを追加！何のエラーが起きているかをコンソールに全部吐き出させる
-    if (result.hasErrors()) {
-        System.out.println("--- バリデーションエラーが発生しました ---");
-        result.getAllErrors().forEach(System.out::println);
-    }
-
     // エラーがあれば、何もせず投稿ページに戻る
     if (result.hasErrors()) {
       return "prototypes/new";
@@ -125,6 +119,8 @@ public class PrototypeController {
       return null;
   }
 
+
+  //削除機能
   @PostMapping("/prototypes/{prototypeId}/delete")
   public String deleteTweet(@PathVariable("prototypeId") Integer prototypeId) {
     
@@ -136,4 +132,76 @@ public class PrototypeController {
     }
     return "redirect:/";
   }
+
+
+  // 編集ページ移動メソッド
+  @GetMapping("/prototypes/edit/{prototypeId}")
+  public String showPrototypeEdit(@PathVariable("prototypeId") Integer prototypeId, Model model) {
+      // 1. DBから既存のデータを取得する
+      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
+
+      // 2. フォームオブジェクトに移し替える
+      PrototypeForm form = new PrototypeForm();
+      form.setId(prototype.getId()); // Formにidを保持させる
+      form.setTitle(prototype.getTitle());
+      form.setCatchcopy(prototype.getCatchcopy());
+      form.setConcept(prototype.getConcept());
+      // ※画像は任意アップロードにするため、ここではセットしないことが多いです
+
+      // 3. 画面に渡す
+      model.addAttribute("prototypeForm", form);
+      
+      // edit.html を呼び出す（今回のHTMLを置く場所）
+      return "prototypes/edit";
+  }
+
+
+  // 更新処理（修正版）
+  @PostMapping("/prototypes/edit/{prototypeId}")
+  public String updatePrototype(
+      @PathVariable("prototypeId") Integer prototypeId,
+      @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
+      BindingResult result,
+      @AuthenticationPrincipal CustomUserDetail userDetails,
+      Model model) {
+
+      // 1. 【条件：自身が投稿していない場合はトップページへ】のチェック
+      // 安全のため、処理の最初に対象のプロトタイプが本人のものか再度チェックします
+      PrototypeEntity currentPrototype = prototypeRepository.findById(prototypeId);
+      if (currentPrototype == null || !currentPrototype.getUserId().equals(userDetails.getUser().getId())) {
+          return "redirect:/";
+      }
+
+      // 2. 【条件：空の入力欄がある場合は、編集できずそのページに留まる（入力済み項目は消えない）】
+      if (result.hasErrors()) {
+          System.out.println("--- 編集バリデーションエラーが発生しました ---");
+          result.getAllErrors().forEach(System.out::println);
+          // そのまま編集ページ（フォームが入った状態）を返して留まらせます
+          return "prototypes/edit"; 
+      }
+      
+      try {
+          // 3. 画面から送られてきた新しい値で上書きする
+          currentPrototype.setTitle(form.getTitle());
+          currentPrototype.setCatchcopy(form.getCatchcopy());
+          currentPrototype.setConcept(form.getConcept());
+          
+          // 4. 【条件：何も編集せずに保存しても、画像無しのプロトタイプにならないこと】
+          // 新しい画像ファイルが選択されている（空でない）場合のみ、画像データを上書きする
+          if (form.getImage() != null && !form.getImage().isEmpty()) {
+              currentPrototype.setImage(form.getImage().getBytes());
+          }
+          
+          // 5. データベースの情報を更新（UPDATE）する
+          prototypeRepository.update(currentPrototype); 
+          
+      } catch (Exception e) {
+          System.out.println("データ更新エラー：" + e);
+          return "redirect:/";
+      }
+      
+      // 6. 【条件：正しく編集できた場合は、プロトタイプ詳細ページへ遷移すること】
+      // トップページではなく、編集したプロトタイプの詳細画面（/prototypes/detail/{id}）へリダイレクトします
+      return "redirect:/prototypes/detail/" + prototypeId;
+  }  
 }

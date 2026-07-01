@@ -21,10 +21,13 @@
     </p>
         
     <div class="action-buttons"th:if="${#authorization.expression('isAuthenticated()') and #authentication?.principal.getId() == prototype.user.id}">
-        <button class="btn btn-outline">編集する</button>
-        <form th:action="@{/prototypes/{prototypeId}/delete(prototypeId=${prototype.id})}" th:method="post">
-            <input type="submit" class="delete-btn btn btn-outline" value="削除">
-        </form>
+      <form th:action="@{/prototypes/edit/{id}(id=${prototype.id})}" th:method="get">
+        <button type="submit" class="btn btn-outline">編集する</button>
+      </form>
+      
+      <form th:action="@{/prototypes/{prototypeId}/delete(prototypeId=${prototype.id})}" th:method="post">
+          <input type="submit" class="delete-btn btn btn-outline" value="削除">
+      </form>
     </div>
 
     <div class="content_post">

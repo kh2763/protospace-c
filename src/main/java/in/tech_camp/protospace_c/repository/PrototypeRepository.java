@@ -57,4 +57,11 @@ public interface PrototypeRepository {
     "LEFT JOIN users u ON p.user_id = u.id " +
     "WHERE p.user_id = #{userId}")
   List<PrototypeEntity> findByUserIdWithUser(Integer userId);
+
+
+  // ★データ更新用メソッドを追加
+  @org.apache.ibatis.annotations.Update(
+    "UPDATE prototype SET title = #{title}, catchcopy = #{catchcopy}, concept = #{concept}, image = #{image} WHERE id = #{id}"
+  )
+  void update(PrototypeEntity prototype);
 }
