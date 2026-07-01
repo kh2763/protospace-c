@@ -1,0 +1,34 @@
+<main class="main-container">
+  <div class="form-wrapper">
+    
+    <h1 class="page-title">プロトタイプ編集</h1>
+
+    <form th:action="@{/prototypes/edit/{id}(id=${prototypeForm.id})}" th:object="${prototypeForm}" method="POST" enctype="multipart/form-data" class="edit-form">
+      
+      <div class="form-group">
+        <label for="proto-name" class="form-label">プロトタイプの名称</label>
+        <input type="text" id="proto-name" th:field="*{title}" class="form-input-text">
+      </div>
+
+      <div class="form-group">
+        <label for="proto-catch" class="form-label">キャッチコピー</label>
+        <input type="text" id="proto-catch" th:field="*{catchcopy}" class="form-input-text">
+      </div>
+
+      <div class="form-group">
+        <label for="proto-concept" class="form-label">コンセプト</label>
+        <textarea id="proto-concept" th:field="*{concept}" class="form-input-text" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="proto-image" class="form-label">プロトタイプの画像</label>
+        <input type="file" id="proto-image" th:field="*{image}" class="form-input-file">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">保存する</button>
+      </div>
+
+    </form>
+  </div>
+</main>
