@@ -66,12 +66,6 @@ public class PrototypeController {
         result.rejectValue("image", "error.image");
     }
 
-// 💡 ★ここを追加！何のエラーが起きているかをコンソールに全部吐き出させる
-    if (result.hasErrors()) {
-        System.out.println("--- バリデーションエラーが発生しました ---");
-        result.getAllErrors().forEach(System.out::println);
-    }
-
     // エラーがあれば、何もせず投稿ページに戻る
     if (result.hasErrors()) {
       return "prototypes/new";
@@ -125,6 +119,8 @@ public class PrototypeController {
       return null;
   }
 
+
+  //削除機能
   @PostMapping("/prototypes/{prototypeId}/delete")
   public String deleteTweet(@PathVariable("prototypeId") Integer prototypeId) {
     
@@ -135,5 +131,27 @@ public class PrototypeController {
       return "redirect:/";
     }
     return "redirect:/";
+  }
+
+
+  // 編集ページ移動メソッド
+  @GetMapping("/prototypes/edit/{prototypeId}")
+  public String showPrototypeEdit(@PathVariable("prototypeId") Integer prototypeId, Model model) {
+      // 1. DBから既存のデータを取得する
+      PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
+
+      // 2. フォームオブジェクトに移し替える
+      PrototypeForm form = new PrototypeForm();
+      form.setId(prototype.getId()); // Formにidを保持させる
+      form.setTitle(prototype.getTitle());
+      form.setCatchcopy(prototype.getCatchcopy());
+      form.setConcept(prototype.getConcept());
+      // ※画像は任意アップロードにするため、ここではセットしないことが多いです
+
+      // 3. 画面に渡す
+      model.addAttribute("prototypeForm", form);
+      
+      // edit.html を呼び出す（今回のHTMLを置く場所）
+      return "prototypes/edit";
   }
 }
