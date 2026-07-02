@@ -71,9 +71,15 @@ public class PrototypeController {
         result.rejectValue("image", "error.image");
     }
 
-    // エラーがあれば、何もせず投稿ページに戻る
+    // ★ここにエラー内容を赤文字で出力する処理を追加します
     if (result.hasErrors()) {
-      return "prototypes/new";
+        System.err.println("--- バリデーションエラーが発生しました ---");
+        result.getAllErrors().forEach(error -> {
+            System.err.println("エラー詳細: " + error.toString());
+        });
+        System.err.println("---------------------------------------");
+        
+        return "prototypes/new";
     }
     
     PrototypeEntity pro = new PrototypeEntity();
@@ -165,7 +171,7 @@ public class PrototypeController {
   @PostMapping("/prototypes/edit/{prototypeId}")
   public String updatePrototype(
       @PathVariable("prototypeId") Integer prototypeId,
-      @ModelAttribute("prototypeForm") @Validated PrototypeForm form, 
+      @ModelAttribute("prototypeForm") @Validated(PrototypeForm.UpdateGroup.class) PrototypeForm form, 
       BindingResult result,
       @AuthenticationPrincipal CustomUserDetail userDetails,
       Model model) {

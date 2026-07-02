@@ -9,7 +9,11 @@ import lombok.Data;
 @Data
 public class PrototypeForm {
 
-    @NotNull
+    public interface UpdateGroup {
+
+    }
+
+    @NotNull(groups = UpdateGroup.class)
     private Integer id;
 
     @NotBlank()
