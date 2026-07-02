@@ -220,3 +220,17 @@
   font-size: 14px;
   margin-bottom: 10px;
 }
+
+
+/* 文字数カウントのスタイル */
+.counter-container {
+  font-size: 13px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* 💡 文字数が上限（140文字）に達したときにJSで付与するクラス */
+.counter-container.danger {
+  color: #ff4d4f;
+  font-weight: bold;
+}
