@@ -66,9 +66,13 @@
           th:object="${commentForm}">
           <label for="text" class="comment-label">コメント</label>
           <div class="input-group">
-            <input type="text" id="text" th:field="*{text}" class="comment-input" />
+            <input type="text" id="comment_input" th:field="*{text}" class="comment-input" maxlength="140" />
+
+            <div class="counter-container">
+              <span id="char_count">0</span> / 140
+            </div>
           </div>
-          <button type="submit" class="comment-submit-btn">送信する</button>
+          <button type="submit" id="comment_submit" class="comment-submit-btn">送信する</button>
         </form>
       </div>
 
@@ -89,6 +93,8 @@
     </div>
 
     <div th:insert="~{footer :: footer}"></div>
+
+    <script th:src="@{/js/comment.js}"></script>
 
 </body>
 
