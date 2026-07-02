@@ -1,5 +1,7 @@
 package in.tech_camp.protospace_c.entity;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -13,8 +15,10 @@ public class PrototypeEntity {
     //private Integer userId;
     private Integer userId;
 
-    // 💡 UserRepository.findById で取得したユーザー情報を格納するフィールドを追加
+    // ユーザー情報を格納するフィールドを追加
     private UserEntity user;
+
+    private List<CommentEntity> comments;
 }
 
 /*
