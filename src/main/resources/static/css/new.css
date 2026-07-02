@@ -102,3 +102,28 @@ textarea.form__text {
   background: #64b5f6;
   border-color: #64b5f6;
 }
+
+
+/* ==========================================================================
+   画像プレビュー機能のスタイル
+   ========================================================================== */
+
+/* プレビューエリア全体（最初は display: none で隠しておく） */
+.preview-box {
+  margin-top: 15px;
+  display: none; 
+}
+
+/* 「プレビュー：」の文字 */
+.preview-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+/* プレビュー画像自体のサイズ制限 */
+.preview-img {
+  max-width: 400px;
+  height: auto;
+  border: 1px solid black;
+}

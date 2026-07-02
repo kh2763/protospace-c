@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <title>新規プロトタイプ投稿 - PROTO SPACE</title>
   <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
   <link th:href="@{/css/new.css}" rel="stylesheet" type="text/css">
 </head>
+
 <body>
 
   <div th:insert="~{header :: header}"></div>
@@ -13,9 +15,9 @@
   <div class="contents row">
     <div class="container">
       <h3>新規プロトタイプの投稿</h3>
-      
+
       <form th:action="@{/prototypes}" th:method="post" th:object="${prototypeForm}" enctype="multipart/form-data">
-        
+
         <div class="field">
           <label>プロトタイプの名称</label><br>
           <input type="text" th:field="*{title}" class="form__text" /><br>
@@ -34,17 +36,24 @@
         <div class="field">
           <label>プロトタイプの画像</label><br>
           <input type="file" th:field="*{image}" id="prototype_image" /><br>
+
+          <div id="image-preview-container" class="preview-box">
+            <p class="preview-title">プレビュー：</p>
+            <img id="image-preview" class="prototype-detail-img preview-img" src="" alt="プレビュー画像">
+          </div>
         </div>
-        
+
         <div class="actions">
           <input type="submit" value="保存する" />
         </div>
-        
+
       </form>
     </div>
   </div>
 
   <div th:insert="~{footer :: footer}"></div>
+  <script th:src="@{/js/preview.js}"></script>
 
 </body>
+
 </html>
