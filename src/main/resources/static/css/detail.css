@@ -112,3 +112,107 @@
 .concept-text {
   color: #555;
 }
+
+
+/* ==========================================================================
+   コメントセクションのスタイル
+   ========================================================================== */
+
+/* コメント欄全体のコンテナ（背景グレーのボックス） */
+.comment-container {
+  background-color: #f5f5f5; /* 薄いグレーの背景 */
+  padding: 30px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* 「コメント」のラベル */
+.comment-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* 入力欄のラッパー */
+.input-group {
+  margin-bottom: 15px;
+}
+
+/* コメント入力フォーム（テキストボックス） */
+.comment-input {
+  width: 100%;
+  max-width: 300px; /* 横幅が広がりすぎないように制限（デザインに合わせる） */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* 「送信する」ボタン */
+.comment-submit-btn {
+  background-color: #7dcbf5; /* 爽やかな水色 */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s;
+  display: block;
+  margin-bottom: 30px;
+}
+
+/* ボタンホバー時 */
+.comment-submit-btn:hover {
+  background-color: #5cb5e6;
+}
+
+/* コメント一覧のリスト（ul） */
+.comments-list ul {
+  list-style-type: disc; /* ポッチ（•）を表示 */
+  padding-left: 20px;
+  margin: 0;
+}
+
+/* コメント1件ごとの枠（li） */
+.comment-item {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* コメント内のユーザー名リンク（カッコ部分） */
+.comment-user-link {
+  color: #888; /* ユーザー名は少し薄めの色に */
+  text-decoration: underline;
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+.comment-user-link:hover {
+  color: #555;
+}
+
+/* 未ログイン時の案内テキスト */
+.login-prompt {
+  color: #666;
+  font-size: 14px;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+/* エラーメッセージ（バリデーション用） */
+.error-message {
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-bottom: 10px;
+}

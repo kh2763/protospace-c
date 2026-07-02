@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class CommentForm {
   @NotBlank(message = "コメントを入力してください")
-  private String tect;
+  private String text;
 }
