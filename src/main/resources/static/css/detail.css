@@ -73,13 +73,17 @@
   justify-content: center;
 }
 
-/* 画像スタイル：等倍（ナチュラル）のサイズで出力し、画面外への溢れを防ぐ安全設定 */
+/* プロトタイプ画像のスタイル調整 */
 .prototype-detail-img {
-  max-width: 100%;
+  max-width: 600px; /* 💡 ここを追加！画像の最大横幅を制限 */
+  width: 100%;       /* これにより、最大幅より小さい画像はそのまま、大きい画像は600pxで縮小される */
   height: auto;
+  border: 1px solid #333; /* 💡 ここを追加！画像の周囲に黒い枠線を付ける */
   display: block;
+  margin-left: auto;  /* 💡 画像を中央に寄せるための設定 */
+  margin-right: auto; /* 💡 画像を中央に寄せるための設定 */
+  box-sizing: border-box; /* 枠線を含めた幅計算にする */
 }
-
 
 /* 各セクション（キャッチコピー・コンセプト）の下部マージンと幅の設定（中央配置に対応） */
 .proto-section {
