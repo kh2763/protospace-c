@@ -31,7 +31,11 @@ public interface PrototypeRepository {
     @Result(property = "image", column = "image"),
     @Result(property = "userId", column = "user_id"),
     @Result(property = "user", column = "user_id",
-            one = @One(select = "in.tech_camp.protospace_c.repository.UserRepository.findById"))
+            one = @One(select = "in.tech_camp.protospace_c.repository.UserRepository.findById")),
+
+    @Result(property = "comments", column = "id",
+      many = @org.apache.ibatis.annotations.Many(select = "in.tech_camp.protospace_c.repository.CommentRepository.findByPrototypeId")
+    )
   })
   List<PrototypeEntity> findAll(); // トップページ用（全件）
   

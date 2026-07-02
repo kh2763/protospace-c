@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import in.tech_camp.protospace_c.custom_user.CustomUserDetail;
+import in.tech_camp.protospace_c.entity.CommentEntity;
 import in.tech_camp.protospace_c.entity.PrototypeEntity;
+import in.tech_camp.protospace_c.form.CommentForm;
 import in.tech_camp.protospace_c.form.PrototypeForm;
+import in.tech_camp.protospace_c.repository.CommentRepository;
 import in.tech_camp.protospace_c.repository.PrototypeRepository;
 import lombok.AllArgsConstructor;
 
@@ -24,6 +27,7 @@ import lombok.AllArgsConstructor;
 public class PrototypeController {
 
   private final PrototypeRepository prototypeRepository;
+  private final CommentRepository commentRepository;
 
   // トップページ（送信後のリダイレクト先）
   @GetMapping("/")
@@ -42,14 +46,15 @@ public class PrototypeController {
     return "prototypes/new";
   }
 
-  //prototypeの詳細ページ移動メソッド コメント機能は全部コメントアウトしました
+  //prototypeの詳細ページ移動メソッド 
     @GetMapping("/prototypes/detail/{prototypeId}")
     public String showPrototypeDetail(@PathVariable("prototypeId") Integer prototypeId, Model model) {      
         PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
-  //     CommentForm commentForm = new CommentForm();
+        CommentForm commentForm = new CommentForm();
+        
         model.addAttribute("prototype", prototype);
-  //     model.addAttribute("commentForm", commentForm);
-  //     model.addAttribute("comments", prototype.getComments());
+        model.addAttribute("commentForm", commentForm);
+        model.addAttribute("comments", prototype.getComments());
         return "prototypes/detail";
   }
 
@@ -156,7 +161,7 @@ public class PrototypeController {
   }
 
 
-  // 更新処理（修正版）
+  // 編集処理
   @PostMapping("/prototypes/edit/{prototypeId}")
   public String updatePrototype(
       @PathVariable("prototypeId") Integer prototypeId,
@@ -204,4 +209,35 @@ public class PrototypeController {
       // トップページではなく、編集したプロトタイプの詳細画面（/prototypes/detail/{id}）へリダイレクトします
       return "redirect:/prototypes/detail/" + prototypeId;
   }  
+
+
+  // コメント投稿処理
+  @PostMapping("/prototypes/{prototypeId}/comment")
+  public String createComment(
+      @PathVariable("prototypeId") Integer prototypeId,
+      @ModelAttribute("commentForm") @Validated in.tech_camp.protospace_c.form.CommentForm form,
+      BindingResult result,
+      @AuthenticationPrincipal CustomUserDetail userDetails,
+      Model model) {
+
+      // バリデーションエラーがある場合、詳細画面に留まる
+      if (result.hasErrors()) {
+          PrototypeEntity prototype = prototypeRepository.findById(prototypeId);
+          model.addAttribute("prototype", prototype);
+          // エラーメッセージを渡す（HTML側の th:if="${errorMessages}" に対応させる場合）
+          model.addAttribute("errorMessages", result.getAllErrors());
+          return "prototypes/detail";
+      }
+
+      // エラーがなければDBに保存
+      CommentEntity comment = new CommentEntity();
+      comment.setText(form.getText());
+      comment.setPrototypeId(prototypeId);
+      comment.setUserId(userDetails.getUser().getId());
+
+      commentRepository.insert(comment);
+
+      // 投稿後は元の詳細画面にリダイレクト
+      return "redirect:/prototypes/detail/" + prototypeId;
+  }
 }
