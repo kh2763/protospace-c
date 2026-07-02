@@ -27,7 +27,8 @@
         <button type="submit" class="btn btn-outline">編集する</button>
       </form>
 
-      <form th:action="@{/prototypes/{prototypeId}/delete(prototypeId=${prototype.id})}" th:method="post">
+      <form th:action="@{/prototypes/{prototypeId}/delete(prototypeId=${prototype.id})}" th:method="post"
+        onsubmit="return confirm('本当にこのプロトタイプを削除しますか？\n（この操作は取り消せません）');">
         <input type="submit" class="delete-btn btn btn-outline" value="削除">
       </form>
     </div>
